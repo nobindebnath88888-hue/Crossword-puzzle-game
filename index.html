@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Strategy Hub — Team Word Hunt</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden}
+body{background:#0a1628;background-image:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(26,51,96,.55) 0%,transparent 60%);font-family:'Crimson Text',serif;color:#e8d5a0;transition:background .35s,color .35s}
+.screen{display:none;width:100vw;height:100vh}
+.screen.active{display:flex}
+#ls{align-items:center;justify-content:center}
+.lw{display:flex;flex-direction:column;align-items:center;gap:22px;padding:20px}
+.crown{font-size:52px;text-align:center;filter:drop-shadow(0 0 18px rgba(212,160,23,.65));animation:fl 3s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.gtitle{font-family:'Cinzel',serif;font-size:clamp(24px,5vw,48px);font-weight:900;letter-spacing:.16em;background:linear-gradient(135deg,#b8860b,#f0c040,#ffe680,#b8860b);background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:sh 4s ease infinite;text-align:center}
+@keyframes sh{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+.gsub{font-style:italic;font-size:14px;color:#9080a0;text-align:center;margin-top:2px}
+.lcard{background:rgba(8,14,30,.97);border:1px solid rgba(180,140,50,.28);border-radius:16px;padding:26px;width:min(440px,93vw);display:flex;flex-direction:column;gap:14px;box-shadow:0 0 60px rgba(0,0,0,.75)}
+input[type=text]{width:100%;background:rgba(8,16,40,.85);border:1px solid #1e3a6e;border-radius:7px;color:#e8d5a0;font-family:'Cinzel',serif;font-size:13px;padding:10px 13px;outline:none;transition:border-color .2s}
+input[type=text]::placeholder{color:#506080;font-family:'Crimson Text',serif;font-style:italic}
+input[type=text]:focus{border-color:#b8860b;box-shadow:0 0 10px rgba(180,140,50,.2)}
+.lbl{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.14em;color:#7080a0;text-transform:uppercase}
+.ccs{display:flex;gap:8px}
+.cc{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;padding:8px 5px;border-radius:8px;border:2px solid transparent;transition:all .2s;flex:1}
+.cc:hover{background:rgba(255,255,255,.06)}
+.cc.sel{border-color:var(--c);background:rgba(255,255,255,.09)}
+.csw{width:28px;height:28px;border-radius:50%;background:var(--c);border:2px solid rgba(255,255,255,.22)}
+.cc span{font-family:'Cinzel',serif;font-size:10px;color:#7080a0}
+.tbox{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.03);border-radius:7px;padding:9px;border:1px solid rgba(255,255,255,.07)}
+.tb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px}
+.tl{font-family:'Cinzel',serif;font-size:11px;font-weight:700;letter-spacing:.09em}
+.ta .tl{color:#e05050}.tb2 .tl{color:#40b060}
+.tm{font-size:11px;color:#506080;font-style:italic}
+.vsd{font-family:'Cinzel',serif;font-size:15px;font-weight:900;color:#b8860b}
+.rsec{display:flex;gap:8px}.rsec input{flex:1}
+.btn{background:linear-gradient(135deg,#7d5a00,#b8860b);border:1px solid #d4a017;border-radius:7px;color:#050b18;font-family:'Cinzel',serif;font-size:12px;font-weight:700;letter-spacing:.07em;padding:10px 16px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn:hover{background:linear-gradient(135deg,#b8860b,#d4a017);box-shadow:0 0 16px rgba(212,160,23,.4);transform:translateY(-1px)}
+#stat{text-align:center;font-style:italic;color:#b8860b;font-size:13px;min-height:18px}
+#gs{overflow:hidden;align-items:stretch}
+.gl{display:grid;grid-template-columns:210px 1fr 210px;width:100%;height:100vh}
+.sp{background:rgba(4,9,20,.97);border-right:1px solid rgba(180,140,50,.14);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;transition:background .35s}
+.rp{border-right:none;border-left:1px solid rgba(180,140,50,.14)}
+.ph{display:flex;align-items:center;gap:8px;padding:11px 13px;background:rgba(180,140,50,.07);border-bottom:1px solid rgba(180,140,50,.13);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.13em;font-weight:700;color:#d4a017;text-transform:uppercase;flex-shrink:0}
+.tbadge{margin-left:auto;background:rgba(255,255,255,.07);border-radius:100px;padding:2px 9px;font-size:9px}
+.cm{flex:1;overflow-y:auto;padding:9px;display:flex;flex-direction:column;gap:6px;min-height:0}
+.cm::-webkit-scrollbar{width:3px}.cm::-webkit-scrollbar-thumb{background:#1e3a6e;border-radius:2px}
+.msg{display:flex;flex-direction:column;gap:2px;padding:6px 9px;border-radius:7px;animation:fu .2s ease;max-width:94%}
+@keyframes fu{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.msg.me{background:rgba(140,100,10,.82);align-self:flex-end}
+.msg.ot{background:rgba(10,20,50,.80);align-self:flex-start}
+.msg.sy{background:rgba(6,12,26,.65);align-self:center;text-align:center;border-radius:6px;padding:3px 8px}
+.ma{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.07em;font-weight:700}
+.ma.red{color:#82b1ff}.ma.blue{color:#00c853}.ma.green{color:#ce93d8}.ma.gold{color:#ffab00}.ma.system{color:#506080}
+.mt{font-size:13px;color:#e8d5a0;line-height:1.4;word-break:break-word}
+.msg.sy .mt{font-size:11px;color:#506080;font-style:italic}
+.cir{display:flex;gap:6px;padding:8px 10px;border-top:1px solid rgba(180,140,50,.25);flex-shrink:0;background:rgba(6,12,26,.65);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:background .35s}
+.cir input{flex:1;font-size:13px;padding:7px 10px}
+.sb{background:rgba(180,140,50,.12);border:1px solid #6b3d10;border-radius:6px;color:#d4a017;font-size:14px;width:32px;min-width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.sb:hover{background:rgba(180,140,50,.26);color:#ffe680}
+.pls{border-top:1px solid rgba(180,140,50,.1);padding:8px 10px;flex-shrink:0}
+.stl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.13em;color:#506080;text-transform:uppercase;margin-bottom:5px}
+.pr{display:flex;align-items:center;gap:6px;padding:3px 6px;border-radius:5px;font-size:11px;background:rgba(255,255,255,.02);margin-bottom:2px}
+.pd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.pnl{color:#e8d5a0;flex:1;font-size:11px}.ps{font-size:10px;color:#506080}
+.rid{font-family:'Cinzel',serif;font-size:10px;color:#506080;text-align:center;margin-top:5px}.rid span{color:#b8860b;font-weight:700}
+.cc2{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:4px;padding:4px 6px;overflow-y:auto;min-height:0;background:rgba(6,10,22,.55);transition:background .35s}
+.ctrls{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center;padding:2px 0;flex-shrink:0}
+#td{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;color:#d4a017;padding:4px 14px;background:rgba(180,140,50,.07);border:1px solid rgba(180,140,50,.16);border-radius:100px;white-space:nowrap}
+.rotbtn{background:rgba(180,140,50,.1);border:1px solid rgba(180,140,50,.3);border-radius:7px;color:#d4a017;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.06em;padding:4px 9px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.rotbtn:hover{background:rgba(180,140,50,.22);color:#ffe680}
+.actbtn{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.32);border-radius:6px;color:#e74c3c;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.05em;padding:4px 9px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.actbtn:hover{background:rgba(231,76,60,.26);color:#ff8070}
+.drawbtn{background:rgba(80,160,255,.09);border:1px solid rgba(80,160,255,.32);border-radius:6px;color:#60a8ff;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.05em;padding:4px 9px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.drawbtn:hover{background:rgba(80,160,255,.22);color:#90c8ff}
+.team-prog-wrap{width:100%;max-width:520px;display:flex;flex-direction:column;gap:5px;flex-shrink:0}
+.team-bar-block{border-radius:8px;padding:7px 10px;border:1px solid;display:flex;flex-direction:column;gap:5px}
+.team-bar-block.us{background:rgba(224,80,80,.06);border-color:rgba(224,80,80,.2)}
+.team-bar-block.them{background:rgba(64,176,96,.06);border-color:rgba(64,176,96,.2)}
+.team-bar-header{display:flex;align-items:center;gap:8px}
+.team-label{font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:.1em}
+.team-bar-block.us .team-label{color:#e05050}
+.team-bar-block.them .team-label{color:#40b060}
+.team-tag{font-family:'Cinzel',serif;font-size:9px;padding:1px 7px;border-radius:100px;letter-spacing:.06em}
+.team-bar-block.us .team-tag{background:rgba(224,80,80,.15);color:#e05050;border:1px solid rgba(224,80,80,.3)}
+.team-bar-block.them .team-tag{background:rgba(64,176,96,.15);color:#40b060;border:1px solid rgba(64,176,96,.3)}
+.team-pct-big{margin-left:auto;font-family:'Cinzel',serif;font-size:12px;font-weight:700}
+.team-bar-block.us .team-pct-big{color:#e05050}
+.team-bar-block.them .team-pct-big{color:#40b060}
+.team-main-track{width:100%;height:10px;background:rgba(255,255,255,.07);border-radius:5px;overflow:hidden}
+.team-main-fill{height:100%;border-radius:5px;transition:width .6s ease}
+.team-bar-block.us .team-main-fill{background:linear-gradient(90deg,#c02020,#e05050)}
+.team-bar-block.them .team-main-fill{background:linear-gradient(90deg,#208040,#40b060)}
+.player-rows{display:flex;flex-direction:column;gap:3px}
+.player-row{display:flex;align-items:center;gap:5px;padding:2px 0}
+.prog-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;border:1px solid rgba(255,255,255,.14)}
+.prog-name{font-family:'Cinzel',serif;font-size:9px;color:#c0c8d8;min-width:40px;white-space:nowrap}
+.prog-name.elim{text-decoration:line-through;opacity:.4;color:#e74c3c}
+.prog-track-sm{flex:1;height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;min-width:40px}
+.prog-fill-sm{height:100%;border-radius:3px;transition:width .5s ease}
+.prog-pct-sm{font-family:'Cinzel',serif;font-size:8px;color:#7080a0;min-width:36px;text-align:right}
+.opp-mystery{display:flex;flex-direction:column;gap:3px}
+.opp-player{display:flex;align-items:center;gap:5px;padding:2px 0}
+.opp-name{font-family:'Cinzel',serif;font-size:9px;color:#c0c8d8;min-width:40px;white-space:nowrap}
+.opp-name.elim{text-decoration:line-through;opacity:.4;color:#e74c3c}
+.board-outer{position:relative;flex-shrink:0}
+#gc{display:block;border-radius:3px;cursor:crosshair;touch-action:none;box-shadow:0 0 0 1px rgba(160,190,220,.2),0 4px 20px rgba(0,0,0,.6)}
+.sel-info{font-family:'Cinzel',serif;font-size:10px;color:#506080;min-height:14px;text-align:center;letter-spacing:.05em}
+
+/* ── Word List Panel ──────────────────────────────────────── */
+.word-list-panel{width:100%;max-width:520px;background:rgba(4,9,20,.65);border-radius:8px;padding:9px 12px;border:1px solid rgba(180,140,50,.15);flex-shrink:0}
+.word-list-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.word-list-title{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.13em;color:#506080;text-transform:uppercase}
+.word-count-badge{font-family:'Cinzel',serif;font-size:10px;font-weight:700;color:#d4a017;padding:1px 8px;background:rgba(180,140,50,.1);border:1px solid rgba(180,140,50,.25);border-radius:100px}
+.word-list-grid{display:flex;flex-wrap:wrap;gap:5px}
+.word-chip{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.07em;padding:3px 10px;border-radius:4px;border:1px solid rgba(180,140,50,.18);color:#c0c8d8;background:rgba(255,255,255,.03);cursor:default;transition:all .2s;white-space:nowrap;user-select:none}
+.word-chip.found{cursor:pointer;text-decoration:line-through;text-decoration-thickness:2px;opacity:.82}
+.word-chip.found:hover{opacity:1;transform:scale(1.06);box-shadow:0 0 8px rgba(180,140,50,.3)}
+.word-chip.gameend{cursor:pointer}
+.word-chip.gameend:hover{opacity:1;transform:scale(1.06);box-shadow:0 0 8px rgba(180,140,50,.3)}
+
+/* ── Meaning Modal ────────────────────────────────────────── */
+.meaning-modal{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:600;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+.meaning-box{background:rgba(8,14,30,.98);border:2px solid rgba(180,140,50,.55);border-radius:16px;padding:28px 32px;max-width:380px;width:90vw;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8)}
+.meaning-word-title{font-family:'Cinzel',serif;font-size:24px;font-weight:900;letter-spacing:.14em;color:#ffe680;margin-bottom:4px;text-shadow:0 0 14px rgba(255,200,0,.4)}
+.meaning-cat-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.18em;color:#8090b0;text-transform:uppercase;margin-bottom:14px;padding:2px 10px;border:1px solid rgba(140,150,180,.2);border-radius:100px;display:inline-block}
+.meaning-def{font-size:14px;color:#c8d8e8;line-height:1.7;margin-bottom:18px;font-style:italic}
+.meaning-close-btn{background:rgba(180,140,50,.15);border:1px solid rgba(180,140,50,.4);border-radius:7px;color:#d4a017;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.07em;padding:7px 22px;cursor:pointer;transition:all .15s}
+.meaning-close-btn:hover{background:rgba(180,140,50,.3);transform:scale(1.04)}
+
+/* ── Board notification ───────────────────────────────────── */
+#board-notif{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.85);background:rgba(6,12,26,.96);border:2px solid rgba(180,140,50,.6);border-radius:14px;padding:18px 28px;text-align:center;pointer-events:none;z-index:9999;opacity:0;transition:opacity .35s,transform .35s;min-width:240px;max-width:90vw;backdrop-filter:blur(12px)}
+#board-notif.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+#board-notif .bn-title{font-family:'Cinzel',serif;font-size:18px;font-weight:700;letter-spacing:.12em;color:#ffe680;margin-bottom:6px;text-shadow:0 0 12px rgba(255,200,0,.5)}
+#board-notif .bn-sub{font-family:'Cinzel',serif;font-size:12px;color:#c8dde8;letter-spacing:.06em;line-height:1.6}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(10,22,40,.97);border:1px solid rgba(180,140,50,.4);border-radius:8px;color:#e8d5a0;font-family:'Cinzel',serif;font-size:12px;padding:10px 18px;opacity:0;transition:all .3s;pointer-events:none;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.vote-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;display:flex;align-items:center;justify-content:center}
+.vote-box{background:rgba(8,14,30,.98);border:1px solid rgba(180,140,50,.3);border-radius:14px;padding:24px 32px;text-align:center;max-width:340px}
+.vote-box h3{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.1em;color:#d4a017;margin-bottom:10px}
+.vote-box p{font-size:13px;color:#9090a0;margin-bottom:16px}
+.vote-btns{display:flex;gap:10px;justify-content:center}
+.rvbtn{padding:7px 20px;border-radius:6px;font-size:12px;font-family:'Cinzel',serif;cursor:pointer;border:1px solid;transition:all .15s}
+.rvbtn.yes{background:rgba(39,174,96,.18);border-color:#27ae60;color:#2ecc71}
+.rvbtn.yes:hover{background:rgba(39,174,96,.35)}
+.rvbtn.no{background:rgba(192,57,43,.18);border-color:#c0392b;color:#e74c3c}
+.rvbtn.no:hover{background:rgba(192,57,43,.35)}
+#uimode-btn{position:fixed;top:12px;right:14px;z-index:9000;width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(180,140,50,.45);background:rgba(10,22,50,.75);backdrop-filter:blur(8px);color:#d4a017;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,.45);transition:background .3s,border-color .3s,transform .2s}
+#uimode-btn:hover{transform:scale(1.12)}
+/* discovery log */
+.gls{border-top:1px solid rgba(180,140,50,.1);padding:6px 10px;display:flex;flex-direction:column;gap:4px;height:125px;flex-shrink:0}
+.ml{overflow-y:auto;font-size:10px;color:#7080a0;display:flex;flex-direction:column;gap:2px;font-family:'Cinzel',serif}
+.ml::-webkit-scrollbar{width:3px}.ml::-webkit-scrollbar-thumb{background:#1e3a6e;border-radius:2px}
+.le{padding:1px 0}.le.red{color:#82b1ff}.le.blue{color:#00c853}.le.green{color:#ce93d8}.le.gold{color:#ffab00}
+
+/* ── Light Mode ─────────────────────────────────────────── */
+body.light{background:#f0ebe0;background-image:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(200,180,130,.35) 0%,transparent 60%);color:#2a1f0a}
+body.light #uimode-btn{background:rgba(255,252,240,.88);border-color:rgba(140,100,20,.45);color:#7a5a00}
+body.light .lcard{background:rgba(255,252,240,.97);border-color:rgba(140,100,20,.28);box-shadow:0 4px 40px rgba(100,70,10,.15)}
+body.light .gsub{color:#7a6a50}
+body.light input[type=text]{background:#fffdf5;border-color:#c8b070;color:#2a1f0a}
+body.light input[type=text]::placeholder{color:#a09070}
+body.light .lbl{color:#907050}
+body.light .cc:hover{background:rgba(0,0,0,.04)}
+body.light .cc span{color:#907050}
+body.light .tbox{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.09)}
+body.light .tm{color:#907050}
+body.light #stat{color:#7a5a00}
+body.light .sp{background:rgba(255,252,242,.97);border-color:rgba(140,100,20,.18)}
+body.light .ph{background:rgba(180,140,50,.08);border-color:rgba(140,100,20,.18);color:#7a5a00}
+body.light .msg.me{background:rgba(180,140,20,.18)}
+body.light .msg.ot{background:rgba(200,190,170,.35)}
+body.light .msg.sy{background:rgba(200,190,160,.25)}
+body.light .mt{color:#2a1f0a}
+body.light .msg.sy .mt{color:#907050}
+body.light .cir{background:rgba(240,234,215,.80);border-color:rgba(180,140,50,.22)}
+body.light .sb{background:rgba(180,140,50,.12);border-color:#c8a060;color:#7a5a00}
+body.light .pls{border-color:rgba(140,100,20,.14)}
+body.light .stl{color:#a09060}
+body.light .pr{background:rgba(0,0,0,.03)}
+body.light .pnl{color:#2a1f0a}
+body.light .ps{color:#907050}
+body.light .rid span{color:#7a5000}
+body.light .gls{border-color:rgba(140,100,20,.14)}
+body.light .cc2{background:rgba(240,234,216,.60)}
+body.light #td{color:#7a5000;background:rgba(180,140,50,.08);border-color:rgba(180,140,50,.22)}
+body.light .rotbtn{background:rgba(180,140,50,.1);border-color:rgba(140,100,20,.4);color:#7a5000}
+body.light .rotbtn:hover{background:rgba(180,140,50,.24);color:#3a2000}
+body.light .actbtn{background:rgba(200,50,30,.07);border-color:rgba(200,50,30,.32);color:#c03020}
+body.light .drawbtn{background:rgba(30,110,220,.07);border-color:rgba(30,110,220,.3);color:#1a6ab0}
+body.light .team-bar-block.us{background:rgba(224,80,80,.04);border-color:rgba(200,60,60,.22)}
+body.light .team-bar-block.them{background:rgba(64,176,96,.04);border-color:rgba(40,140,70,.22)}
+body.light .prog-name,.body.light .opp-name{color:#3a2f1a}
+body.light .sel-info{color:#907050}
+body.light .toast{background:rgba(255,252,238,.97);border-color:rgba(140,100,20,.4);color:#2a1f0a}
+body.light #board-notif{background:rgba(255,252,236,.97)}
+body.light .vote-box{background:rgba(255,252,238,.98);border-color:rgba(140,100,20,.3)}
+body.light .vote-box p{color:#706050}
+body.light .word-list-panel{background:rgba(240,234,215,.75);border-color:rgba(140,100,20,.22)}
+body.light .word-chip{color:#3a2f1a;border-color:rgba(140,100,20,.2);background:rgba(0,0,0,.04)}
+body.light .meaning-box{background:rgba(255,252,238,.98);border-color:rgba(140,100,20,.55)}
+body.light .meaning-def{color:#3a4050}
+body.light .meaning-word-title{color:#7a4000;text-shadow:none}
+body.light .meaning-cat-label{color:#906050;border-color:rgba(140,100,20,.3)}
+body.light .meaning-close-btn{background:rgba(180,140,50,.1);color:#7a5000}
+
+/* ── Mobile ─────────────────────────────────────────────── */
+@media(max-width:640px){
+  html,body{overflow:hidden;height:100dvh;touch-action:manipulation}
+  #gs{overflow:hidden!important}
+  .gl{display:block!important;position:relative;width:100vw;height:100dvh}
+  .sp{display:none!important}
+  .cc2{position:absolute!important;top:0;left:0;right:0;bottom:0;padding:2px 2px!important;overflow-y:auto!important;gap:2px!important;align-items:center!important}
+  .ctrls{gap:3px!important;padding:1px 0!important}
+  #td{font-size:9px!important;padding:2px 8px!important}
+  .rotbtn,.actbtn,.drawbtn{font-size:9px!important;padding:3px 7px!important}
+  .team-prog-wrap{gap:3px!important}
+  .team-bar-block{padding:4px 7px!important;gap:3px!important}
+  .team-label{font-size:9px!important}
+  .team-pct-big{font-size:10px!important}
+  .team-main-track{height:7px!important}
+  .word-list-panel{padding:6px 8px!important}
+  .word-chip{font-size:9px!important;padding:2px 7px!important}
+  #mob-drawer{
+    position:fixed;bottom:0;left:0;right:0;
+    background:transparent;
+    backdrop-filter:none;-webkit-backdrop-filter:none;
+    border-top:1px solid rgba(180,140,50,.30);
+    border-radius:14px 14px 0 0;
+    z-index:100;max-height:65dvh;
+    display:flex;flex-direction:column;
+    transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1)
+  }
+  #mob-drawer.open{transform:translateY(0)}
+  .mob-handle{text-align:center;padding:7px 0 5px;font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:.10em;color:#e8f0f8;cursor:pointer;flex-shrink:0;line-height:1;background:transparent;text-shadow:0 1px 6px rgba(0,0,0,.95)}
+  .mob-tabs{display:flex;flex-shrink:0;border-bottom:1px solid rgba(180,140,50,.20);background:transparent}
+  .mob-tab{flex:1;font-family:'Cinzel',serif;font-size:12px;font-weight:700;letter-spacing:.08em;padding:9px 4px 7px;text-align:center;color:#d0dde8;cursor:pointer;border:none;background:transparent;transition:color .15s;text-shadow:0 1px 4px rgba(0,0,0,.9)}
+  .mob-tab.active{color:#ffe080;border-bottom:2px solid #ffe080;background:transparent;text-shadow:0 0 8px rgba(255,200,0,.6)}
+  .mob-panel{display:none;flex:1;overflow-y:auto;flex-direction:column;min-height:0;background:transparent}
+  .mob-panel.active{display:flex}
+  #mob-openbtn{position:fixed;bottom:10px;right:10px;width:40px;height:40px;border-radius:50%;background:rgba(180,140,50,.22);border:1px solid rgba(180,140,50,.45);color:#d4a017;font-size:17px;cursor:pointer;z-index:99;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.55)}
+}
+@media(min-width:641px){#mob-drawer{display:none!important}#mob-openbtn{display:none!important}}
+@media(max-width:640px){#mob-openbtn{display:flex}}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- ── Login ───────────────────────────────────────── -->
+<div id="ls" class="screen active">
+  <div class="lw">
+    <div>
+      <div class="crown">🔍</div>
+      <h1 class="gtitle">STRATEGY HUB</h1>
+      <p class="gsub">Team Word Hunt &middot; Hidden Words &middot; One Grid</p>
+    </div>
+    <div class="lcard">
+      <input type="text" id="ni" placeholder="Your name…" maxlength="20"/>
+      <div class="lbl">Choose your colour</div>
+      <div class="ccs">
+        <div class="cc" data-color="red"   style="--c:#2979ff"><div class="csw"></div><span>Cobalt</span></div>
+        <div class="cc" data-color="blue"  style="--c:#00c853"><div class="csw"></div><span>Emerald</span></div>
+        <div class="cc" data-color="green" style="--c:#aa00ff"><div class="csw"></div><span>Violet</span></div>
+        <div class="cc" data-color="gold"  style="--c:#ffab00"><div class="csw"></div><span>Amber</span></div>
+      </div>
+      <div class="tbox">
+        <div class="tb ta"><span class="tl">⚔ TEAM A</span><span class="tm">Cobalt + Amber</span></div>
+        <div class="vsd">VS</div>
+        <div class="tb tb2"><span class="tl">⚔ TEAM B</span><span class="tm">Emerald + Violet</span></div>
+      </div>
+      <div style="font-family:'Cinzel',serif;font-size:10px;color:#507090;line-height:1.5;text-align:center;padding:2px 0">
+        🔒 Your team's found words glow on <em>your</em> board.<br>Race to find all hidden words before the enemy!
+      </div>
+      <div class="rsec">
+        <input type="text" id="ri" placeholder="Room ID (blank = create new)"/>
+        <button id="jb" class="btn">Enter Arena</button>
+      </div>
+      <div id="stat">Enter your name and join!</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Game ──────────────────────────────────────────── -->
+<div id="gs" class="screen">
+  <div class="gl">
+    <!-- Left: team chat -->
+    <div class="sp">
+      <div class="ph">🛡<span>TEAM CHAT</span><span id="tld" class="tbadge">—</span></div>
+      <div id="tcm" class="cm"></div>
+      <div class="cir">
+        <input type="text" id="tci" placeholder="Message ally…" maxlength="200"/>
+        <button id="tsb" class="sb">➤</button>
+      </div>
+      <div class="pls">
+        <div class="stl">Players</div>
+        <div id="pl"></div>
+        <div class="rid">Room: <span id="rs">—</span></div>
+      </div>
+    </div>
+
+    <!-- Centre: board + word list -->
+    <div class="cc2" id="center-col">
+      <div class="ctrls">
+        <div id="td">Waiting…</div>
+        <button class="rotbtn" id="rotbtn">⟳ Rotate</button>
+        <button class="rotbtn" id="themebtn">🎨 Theme</button>
+        <button class="actbtn" id="resbtn">⚑ Resign</button>
+        <button class="drawbtn" id="drawbtn">🤝 Draw</button>
+      </div>
+      <div class="team-prog-wrap" id="prog-wrap"></div>
+      <div class="board-outer">
+        <canvas id="gc" width="400" height="400"></canvas>
+        <div id="board-notif"><div class="bn-title" id="bn-title"></div><div class="bn-sub" id="bn-sub"></div></div>
+      </div>
+      <div class="sel-info" id="sel-info">Drag across letters to select a hidden word</div>
+
+      <!-- Word list panel -->
+      <div class="word-list-panel" id="word-list-panel">
+        <div class="word-list-header">
+          <span class="word-list-title">🔍 Find These Words</span>
+          <span class="word-count-badge" id="word-count">0/0</span>
+        </div>
+        <div class="word-list-grid" id="word-list-grid"></div>
+      </div>
+    </div>
+
+    <!-- Right: public chat + discovery log -->
+    <div class="sp rp">
+      <div class="ph">📢<span>PUBLIC CHAT</span></div>
+      <div id="pcm" class="cm"></div>
+      <div class="cir">
+        <input type="text" id="pci" placeholder="Global message…" maxlength="200"/>
+        <button id="psb" class="sb">➤</button>
+      </div>
+      <div class="gls">
+        <div class="stl">Discovery Log</div>
+        <div id="ml" class="ml"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Mobile drawer -->
+<div id="mob-drawer" style="display:none">
+  <div class="mob-handle" id="mob-handle">▲ CHAT &amp; PLAYERS</div>
+  <div class="mob-tabs">
+    <button class="mob-tab active" data-tab="tchat">🛡 Team</button>
+    <button class="mob-tab" data-tab="pchat">📢 Public</button>
+    <button class="mob-tab" data-tab="players">👤 Players</button>
+  </div>
+  <div class="mob-panel active" id="mob-tchat">
+    <div id="mob-tcm" class="cm"></div>
+    <div class="cir">
+      <input type="text" id="mob-tci" placeholder="Message ally…" maxlength="200"/>
+      <button id="mob-tsb" class="sb">➤</button>
+    </div>
+  </div>
+  <div class="mob-panel" id="mob-pchat">
+    <div id="mob-pcm" class="cm"></div>
+    <div class="cir">
+      <input type="text" id="mob-pci" placeholder="Global message…" maxlength="200"/>
+      <button id="mob-psb" class="sb">➤</button>
+    </div>
+  </div>
+  <div class="mob-panel" id="mob-players" style="padding:8px">
+    <div id="mob-pl"></div>
+  </div>
+</div>
+<button id="mob-openbtn" style="display:none">💬</button>
+
+<!-- Draw overlay -->
+<div id="vote-overlay" class="vote-overlay" style="display:none">
+  <div class="vote-box">
+    <h3>DRAW PROPOSED</h3>
+    <p id="vote-msg">The opponent team proposes a draw. Accept?</p>
+    <div class="vote-btns">
+      <button class="rvbtn yes" id="vote-yes">✓ Accept</button>
+      <button class="rvbtn no" id="vote-no">✗ Decline</button>
+    </div>
+  </div>
+</div>
+
+<!-- Meaning modal -->
+<div id="meaning-modal" class="meaning-modal" style="display:none">
+  <div class="meaning-box">
+    <div class="meaning-word-title" id="meaning-word"></div>
+    <div class="meaning-cat-label" id="meaning-cat"></div>
+    <div class="meaning-def" id="meaning-text"></div>
+    <button class="meaning-close-btn" id="meaning-close">✕ Close</button>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+<button id="uimode-btn" title="Toggle Light / Dark">🌙</button>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getDatabase,ref,set,get,push,onValue,update,remove,onDisconnect}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const FB={
+  apiKey:"AIzaSyBapLAgSJg1hzy6mAPj7KgEg9ey7vesrtU",
+  authDomain:"board-puzzle-games.firebaseapp.com",
+  databaseURL:"https://board-puzzle-games-default-rtdb.firebaseio.com",
+  projectId:"board-puzzle-games",
+  storageBucket:"board-puzzle-games.firebasestorage.app",
+  messagingSenderId:"543242357628",
+  appId:"1:543242357628:web:b29225610d8962776bf2f9"
+};
+const app=initializeApp(FB);
+const db=getDatabase(app);
+
+// ── Constants ──────────────────────────────────────────────
+const GRID=8;
+const MAX_WORDS=9;
+const COLORS=['red','blue','green','gold'];
+const TEAMS={red:'A',gold:'A',blue:'B',green:'B'};
+const PM={
+  red:  {label:'Cobalt', dot:'#2979ff',fillLight:'#1565c0',fillDark:'#82b1ff',prog:'#2979ff'},
+  blue: {label:'Emerald',dot:'#00c853',fillLight:'#1b7a35',fillDark:'#69f0ae',prog:'#00c853'},
+  green:{label:'Violet', dot:'#aa00ff',fillLight:'#7b1fa2',fillDark:'#ea80fc',prog:'#aa00ff'},
+  gold: {label:'Amber',  dot:'#ffab00',fillLight:'#c06000',fillDark:'#ffd740',prog:'#ffab00'},
+};
+const THEMES=[
+  {name:'Pearl',   bg:'#f5f4f0',cEven:'#ffffff',cOdd:'#eef0f8',line:'rgba(140,130,110,.25)',bLine:'#7080a8',gText:'#14203a',selBg:'rgba(255,210,30,.55)',dark:false},
+  {name:'Midnight',bg:'#0c1220',cEven:'#141e32',cOdd:'#0c1628',line:'rgba(45,75,145,.25)',bLine:'#263c90',gText:'#b8cce8',selBg:'rgba(255,200,40,.5)',dark:true},
+  {name:'Parchment',bg:'#f0e6cc',cEven:'#fdf4e4',cOdd:'#ece0c8',line:'rgba(105,75,40,.22)',bLine:'#7a5030',gText:'#32200a',selBg:'rgba(200,130,10,.45)',dark:false},
+];
+
+// ── Word Bank ─────────────────────────────────────────────
+const WORD_BANK=[
+  // Capitals
+  {word:'ROME',meaning:'Capital of Italy; built on seven hills along the Tiber River, once the heart of an empire spanning from Britain to Mesopotamia.',category:'Capital City'},
+  {word:'OSLO',meaning:'Capital of Norway; a fjord-side city and home to the Nobel Peace Prize ceremony held each December.',category:'Capital City'},
+  {word:'LIMA',meaning:'Capital of Peru; founded by Spanish conquistador Francisco Pizarro in 1535 on the Pacific coast of South America.',category:'Capital City'},
+  {word:'CAIRO',meaning:'Capital of Egypt and the largest city in Africa; the ancient Pyramids of Giza rise just outside the city limits.',category:'Capital City'},
+  {word:'SEOUL',meaning:'Capital of South Korea; a futuristic mega-city of 10 million people surrounded by ancient palaces and fortress walls.',category:'Capital City'},
+  {word:'PARIS',meaning:'Capital of France; known as the City of Light, it is home to the Eiffel Tower, the Louvre, and Notre-Dame Cathedral.',category:'Capital City'},
+  {word:'TOKYO',meaning:'Capital of Japan; the world\'s most populous metropolitan area, home to over 37 million people in its greater area.',category:'Capital City'},
+  {word:'ATHENS',meaning:'Capital of Greece and the cradle of Western civilization; democracy, philosophy, and the Olympic Games were born here.',category:'Capital City'},
+  {word:'WARSAW',meaning:'Capital of Poland; almost entirely destroyed in World War II, then rebuilt brick-by-brick by its determined citizens.',category:'Capital City'},
+  {word:'NASSAU',meaning:'Capital of the Bahamas; a tropical Caribbean city on New Providence Island, known for its colorful colonial buildings.',category:'Capital City'},
+  {word:'MASERU',meaning:'Capital of Lesotho; a small city in a kingdom entirely surrounded by South Africa, perched in the Maluti Mountains.',category:'Capital City'},
+  {word:'HAVANA',meaning:'Capital of Cuba; famous worldwide for its 1950s American cars, colorful colonial architecture, and vibrant salsa music.',category:'Capital City'},
+  {word:'OTTAWA',meaning:'Capital of Canada; chosen by Queen Victoria in 1857, it sits at the confluence of three rivers and is bilingual in English and French.',category:'Capital City'},
+  {word:'BOGOTA',meaning:'Capital of Colombia; one of the world\'s highest capital cities at 2,640 meters above sea level in the Andes mountains.',category:'Capital City'},
+  {word:'VIENNA',meaning:'Capital of Austria; once the center of the Habsburg Empire, it is called the City of Music for producing Mozart, Beethoven, and Haydn.',category:'Capital City'},
+  {word:'ANKARA',meaning:'Capital of Turkey; a modern city chosen over Istanbul by Atatürk in 1923 as the capital of the new Turkish Republic.',category:'Capital City'},
+  {word:'MANILA',meaning:'Capital of the Philippines; founded by Spanish colonizers in 1571, it is one of the world\'s most densely populated cities.',category:'Capital City'},
+  {word:'BERLIN',meaning:'Capital of Germany; once divided for 28 years by the infamous Berlin Wall, it reunified in 1989 in a joyous celebration.',category:'Capital City'},
+  {word:'LHASA',meaning:'Capital of Tibet; called the Roof of the World at 3,656 meters, it is home to the magnificent Potala Palace.',category:'Capital City'},
+  {word:'KUWAIT',meaning:'Capital city of Kuwait State; a prosperous Gulf city enriched by vast oil reserves discovered in the 20th century.',category:'Capital City'},
+  {word:'GABORONE',meaning:'Capital of Botswana; one of the fastest-growing cities in Africa following the country\'s independence in 1966.',category:'Capital City'},
+  // People
+  {word:'CURIE',meaning:'Marie Curie: the first woman to win a Nobel Prize. She discovered the radioactive elements polonium and radium, and died from radiation exposure.',category:'Historic Person'},
+  {word:'TESLA',meaning:'Nikola Tesla: Serbian-American inventor of alternating current (AC) electricity, the Tesla coil, and early wireless transmission systems.',category:'Historic Person'},
+  {word:'PLATO',meaning:'Ancient Greek philosopher who founded the Academy in Athens around 387 BC and wrote The Republic, imagining a perfect society.',category:'Historic Person'},
+  {word:'MARCO',meaning:'Marco Polo: a 13th-century Venetian explorer whose documented travels to China and Asia opened up crucial East-West trade routes.',category:'Historic Person'},
+  {word:'GANDHI',meaning:'Mahatma Gandhi: Indian independence leader who pioneered nonviolent civil disobedience, inspiring movements for civil rights worldwide.',category:'Historic Person'},
+  {word:'NEWTON',meaning:'Isaac Newton: English physicist who discovered gravity by observing a falling apple, formulated the three laws of motion, and co-invented calculus.',category:'Historic Person'},
+  {word:'DARWIN',meaning:'Charles Darwin: English naturalist who proposed the theory of evolution by natural selection in his 1859 book On the Origin of Species.',category:'Historic Person'},
+  {word:'CAESAR',meaning:'Julius Caesar: Roman general and statesman who conquered Gaul, crossed the Rubicon River, and became dictator before his assassination in 44 BC.',category:'Historic Person'},
+  {word:'MOZART',meaning:'Wolfgang Amadeus Mozart: Austrian composer who began performing at age 4 and wrote 626 extraordinary works before dying at only 35 years old.',category:'Historic Person'},
+  {word:'KEPLER',meaning:'Johannes Kepler: German astronomer who discovered the three fundamental laws of planetary motion that govern how planets orbit the Sun.',category:'Historic Person'},
+  {word:'PASTEUR',meaning:'Louis Pasteur: French microbiologist who proved that germs cause disease, developed pasteurization, and created the first vaccines for rabies.',category:'Historic Person'},
+  {word:'LINCOLN',meaning:'Abraham Lincoln: 16th President of the United States, who led the country through the Civil War and signed the Emancipation Proclamation.',category:'Historic Person'},
+  {word:'NAPOLEON',meaning:'Napoleon Bonaparte: French military genius who rose from lieutenant to Emperor and conquered most of Europe before his exile to Saint Helena.',category:'Historic Person'},
+  {word:'COLUMBUS',meaning:'Christopher Columbus: Italian explorer who, sailing for Spain in 1492, reached the Americas and permanently connected the Old and New Worlds.',category:'Historic Person'},
+  {word:'EINSTEIN',meaning:'Albert Einstein: German-born physicist who developed the theory of relativity and the famous equation E=mc², revolutionizing our understanding of space and time.',category:'Historic Person'},
+  {word:'AMUNDSEN',meaning:'Roald Amundsen: Norwegian polar explorer who became the first person to reach the South Pole on December 14, 1911.',category:'Historic Person'},
+  // Birds
+  {word:'ROBIN',meaning:'A small songbird with a warm red-orange breast; it is a beloved symbol of spring in Europe and the national bird of the United Kingdom.',category:'Bird'},
+  {word:'EAGLE',meaning:'A large and powerful bird of prey; many nations use it as their emblem of strength and freedom, including the United States.',category:'Bird'},
+  {word:'CRANE',meaning:'A tall, graceful wading bird famous for its spectacular courtship dances; in Japan it is a symbol of longevity and good fortune.',category:'Bird'},
+  {word:'HERON',meaning:'A large wading bird that hunts fish by standing perfectly motionless in shallow water, then striking with lightning speed.',category:'Bird'},
+  {word:'STORK',meaning:'A large white migratory bird; according to centuries of European folklore, storks bring newborn babies to their families.',category:'Bird'},
+  {word:'MACAW',meaning:'A brilliantly colored, long-tailed parrot native to Central and South America; some species can live for over 60 years.',category:'Bird'},
+  {word:'FINCH',meaning:'A small seed-eating bird; Charles Darwin\'s famous study of finches on the Galápagos Islands helped him develop his theory of evolution.',category:'Bird'},
+  {word:'EGRET',meaning:'An elegant white wading bird nearly hunted to extinction in the 19th century for its decorative feathers used in ladies\' hats.',category:'Bird'},
+  {word:'FALCON',meaning:'A swift, agile bird of prey; the Peregrine Falcon, diving at over 380 km/h, is the fastest animal on Earth.',category:'Bird'},
+  {word:'CONDOR',meaning:'The largest flying land bird in the Western Hemisphere with a wingspan of up to 3.2 meters; sacred to Andean indigenous peoples.',category:'Bird'},
+  {word:'PARROT',meaning:'A colorful, highly intelligent tropical bird; some species can learn hundreds of words and solve complex puzzles.',category:'Bird'},
+  {word:'TOUCAN',meaning:'A tropical bird of Central America instantly recognized by its enormous, brightly colored beak, which helps it reach fruit on thin branches.',category:'Bird'},
+  {word:'OSPREY',meaning:'A large fish-eating hawk found on every continent except Antarctica; it plunges feet-first into water to catch fish.',category:'Bird'},
+  // Animals
+  {word:'COBRA',meaning:'A venomous snake that spreads its neck ribs into a wide hood when threatened; the Indian Cobra features in traditional snake-charming performances.',category:'Animal'},
+  {word:'WHALE',meaning:'The largest animals ever to exist on Earth; the Blue Whale\'s heart alone is the size of a small car and can be heard miles away.',category:'Animal'},
+  {word:'ZEBRA',meaning:'An African equid famous for its unique black-and-white stripe pattern; scientists believe stripes may confuse biting flies and predators.',category:'Animal'},
+  {word:'LEMUR',meaning:'A primate found only on the island of Madagascar; the name comes from the Latin word for ghosts, given for their eerie night calls.',category:'Animal'},
+  {word:'PANDA',meaning:'A black-and-white bear native to central China\'s bamboo forests; it spends up to 16 hours a day eating to get enough nutrients.',category:'Animal'},
+  {word:'BISON',meaning:'The largest land animal in North America; once 60 million roamed the Great Plains until they were nearly wiped out in the 1800s.',category:'Animal'},
+  {word:'JAGUAR',meaning:'The largest cat in the Americas and a sacred symbol in Mayan civilization; it is an apex predator of the Amazon rainforest.',category:'Animal'},
+  {word:'OKAPI',meaning:'A mysterious rainforest relative of the giraffe with zebra-striped legs; it was completely unknown to science until 1901.',category:'Animal'},
+  {word:'NARWHAL',meaning:'An Arctic whale nicknamed the unicorn of the sea; its long, spiral ivory tusk is actually an enlarged tooth that can reach 3 meters.',category:'Animal'},
+  {word:'AXOLOTL',meaning:'A Mexican salamander that retains its juvenile features throughout its entire life and possesses the remarkable ability to regenerate lost limbs.',category:'Animal'},
+  // Science & Inventions
+  {word:'RADAR',meaning:'Radio Detection And Ranging: uses radio waves to detect the position and speed of objects; its development was crucial to the Allied victory in WWII.',category:'Invention'},
+  {word:'LASER',meaning:'Light Amplification by Stimulated Emission of Radiation: a focused beam of coherent light used in surgery, manufacturing, communications, and space exploration.',category:'Invention'},
+  {word:'SONAR',meaning:'Sound Navigation And Ranging: uses sound waves to detect underwater objects, originally developed to track submarines during World War I.',category:'Invention'},
+  {word:'NYLON',meaning:'The world\'s first fully synthetic fiber, invented by DuPont in 1935; it was first used in toothbrushes before revolutionizing the clothing industry.',category:'Invention'},
+  {word:'DYNAMO',meaning:'A machine that converts mechanical energy into electrical energy using magnetic induction; Michael Faraday built the first one in 1831.',category:'Invention'},
+  {word:'DIESEL',meaning:'An internal combustion engine designed to run on heavy oil fuel; invented by German engineer Rudolf Diesel in 1893, now used worldwide.',category:'Invention'},
+  {word:'GENOME',meaning:'The complete set of DNA instructions of a living organism; the Human Genome Project completed the first full map of human DNA in 2003.',category:'Science'},
+  {word:'PHOTON',meaning:'The fundamental particle of light and all electromagnetic radiation; it has no mass and always travels at exactly 299,792 km per second.',category:'Science'},
+  {word:'NEURON',meaning:'A specialized nerve cell that transmits electrical signals throughout the brain and body; the human brain contains about 86 billion neurons.',category:'Science'},
+  {word:'PLASMA',meaning:'The fourth state of matter beyond solid, liquid, and gas; lightning, the Sun, and neon signs all contain plasma.',category:'Science'},
+  {word:'QUASAR',meaning:'An extraordinarily luminous core of a distant galaxy powered by a supermassive black hole consuming surrounding matter at a tremendous rate.',category:'Science'},
+  {word:'PROTON',meaning:'A positively charged subatomic particle found in the nucleus of every atom; scientists smash protons together at CERN to study fundamental physics.',category:'Science'},
+  {word:'VACCINE',meaning:'A biological preparation that trains the immune system to fight a specific disease; Edward Jenner created the first vaccine against smallpox in 1796.',category:'Invention'},
+  {word:'COMPASS',meaning:'A navigational tool that uses Earth\'s magnetic field to indicate direction; its invention in ancient China enabled the great Age of Exploration.',category:'Invention'},
+  // Historical Places
+  {word:'TROY',meaning:'The legendary ancient city of the Trojan War, immortalized by Homer\'s Iliad; its real ruins were discovered in Turkey by archaeologist Heinrich Schliemann.',category:'Historic Place'},
+  {word:'ELBA',meaning:'An Italian island where Napoleon Bonaparte was first exiled in 1814 after his abdication; he escaped after just ten months.',category:'Historic Place'},
+  {word:'PETRA',meaning:'An ancient rock-carved Nabataean city in Jordan, nicknamed the Rose-Red City for its pink sandstone; it was built over 2,300 years ago.',category:'Historic Place'},
+  {word:'SPARTA',meaning:'A powerful ancient Greek city-state renowned for its ferocious warriors; boys began military training at age 7 and served until age 60.',category:'Historic Place'},
+  {word:'POMPEII',meaning:'A prosperous Roman city near Naples that was buried under 4–6 meters of volcanic ash when Mount Vesuvius erupted catastrophically in 79 AD.',category:'Historic Place'},
+  {word:'BABYLON',meaning:'One of the most magnificent cities of the ancient world, located in Mesopotamia; home to the legendary Hanging Gardens, one of the Seven Wonders.',category:'Historic Place'},
+  {word:'ANGKOR',meaning:'A vast temple complex built by the Khmer Empire in Cambodia, now the world\'s largest religious monument, covering over 400 square kilometers.',category:'Historic Place'},
+];
+
+// ── Seeded RNG ─────────────────────────────────────────────
+function hashStr(s){let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return h>>>0;}
+function mulberry32(seed){return()=>{seed|=0;seed=(seed+0x6D2B79F5)|0;let t=Math.imul(seed^seed>>>15,1|seed);t=(t+Math.imul(t^t>>>7,61|t))^t;return((t^t>>>14)>>>0)/4294967296;};}
+function shuffle(arr,rng){for(let i=arr.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+
+// ── Word Search Generator ──────────────────────────────────
+function generateWordSearch(roomId){
+  const rng=mulberry32(hashStr(roomId+'_wh1'));
+  const DIRS=[[0,1],[1,0],[1,1],[1,-1],[0,-1],[-1,0],[-1,-1],[-1,1]];
+  const grid=Array.from({length:GRID},()=>Array(GRID).fill(''));
+  const bank=shuffle([...WORD_BANK],rng);
+  const chosen=[],placements=[];
+
+  for(const wObj of bank){
+    if(chosen.length>=MAX_WORDS)break;
+    const w=wObj.word;
+    if(w.length<3||w.length>GRID)continue;
+    let placed=false;
+    const dirs=shuffle([...DIRS],rng);
+    outer:for(let att=0;att<250&&!placed;att++){
+      const dir=dirs[att%dirs.length];
+      const [dr,dc]=dir;
+      const sr=Math.floor(rng()*GRID),sc=Math.floor(rng()*GRID);
+      const cells=[];
+      for(let i=0;i<w.length;i++){
+        const r=sr+dr*i,c=sc+dc*i;
+        if(r<0||r>=GRID||c<0||c>=GRID)continue outer;
+        if(grid[r][c]!==''&&grid[r][c]!==w[i])continue outer;
+        cells.push([r,c]);
+      }
+      cells.forEach(([r,c],i)=>grid[r][c]=w[i]);
+      chosen.push(wObj);
+      placements.push({word:w,cells,dir});
+      placed=true;
+    }
+  }
+
+  // Fill blanks
+  const LTRS='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  for(let r=0;r<GRID;r++)for(let c=0;c<GRID;c++)
+    if(grid[r][c]==='')grid[r][c]=LTRS[Math.floor(rng()*26)];
+
+  return{grid,words:chosen,placements};
+}
+
+// ── State ──────────────────────────────────────────────────
+let _rot=0,_tIdx=0;
+let _grid=null,_words=[],_placements=[];
+let _foundA={},_foundB={};
+let _cellColors={};        // {`r,c`: color} — MY team's found-cell highlights
+let _selStart=null,_selEnd=null,_mouseDown=false;
+let _elim={};
+let GS=null,myColor=null,myName='',myUid=null,roomId=null,roomRef=null;
+let _myTeam=null,_oppTeam=null,_lastWinner=null;
+
+// ── Board Transforms ───────────────────────────────────────
+const N=GRID-1;
+function b2d(r,c,rot){if(rot===0)return[r,c];if(rot===1)return[c,N-r];if(rot===2)return[N-r,N-c];return[N-c,r];}
+function d2b(dr,dc,rot){if(rot===0)return[dr,dc];if(rot===1)return[N-dc,dr];if(rot===2)return[N-dr,N-dc];return[dc,N-dr];}
+
+// ── Paint ──────────────────────────────────────────────────
+function paint(){
+  const cv=document.getElementById('gc');
+  if(!cv)return;
+  const ctx=cv.getContext('2d');
+  const BP=cv.width;
+  const CS=Math.floor(BP/GRID);
+  const T=THEMES[_tIdx];
+  ctx.fillStyle=T.bg;ctx.fillRect(0,0,BP,BP);
+  if(!_grid)return;
+
+  const selCells=getSelectionCells();
+  const selSet=new Set(selCells.map(([r,c])=>`${r},${c}`));
+
+  for(let r=0;r<GRID;r++){
+    for(let c=0;c<GRID;c++){
+      const[dr,dc]=b2d(r,c,_rot);
+      const x=dc*CS,y=dr*CS;
+      const key=`${r},${c}`;
+      const foundColor=_cellColors[key];
+      const inSel=selSet.has(key);
+
+      let bg,letterColor=T.gText;
+
+      if(inSel){
+        bg=T.selBg;
+      } else if(foundColor){
+        const pm=PM[foundColor];
+        const hex=pm.dot;
+        bg=hex+'44';
+        letterColor=T.dark?pm.fillDark:pm.fillLight;
+      } else {
+        bg=(r+c)%2===0?T.cEven:T.cOdd;
+      }
+
+      ctx.fillStyle=bg;ctx.fillRect(x+.5,y+.5,CS-1,CS-1);
+
+      const letter=_grid[r]?.[c];
+      if(letter){
+        ctx.fillStyle=letterColor;
+        ctx.font=`700 ${Math.round(CS*.50)}px 'Cinzel',serif`;
+        ctx.textAlign='center';ctx.textBaseline='middle';
+        ctx.fillText(letter,x+CS/2,y+CS/2);
+      }
+    }
+  }
+
+  // Grid lines
+  ctx.lineWidth=0.5;ctx.strokeStyle=T.line;
+  for(let i=1;i<GRID;i++){
+    ctx.beginPath();ctx.moveTo(i*CS,0);ctx.lineTo(i*CS,BP);
+    ctx.moveTo(0,i*CS);ctx.lineTo(BP,i*CS);ctx.stroke();
+  }
+  ctx.strokeStyle=T.bLine;ctx.lineWidth=2.5;ctx.strokeRect(1.5,1.5,BP-3,BP-3);
+}
+
+// ── Selection Helpers ──────────────────────────────────────
+function getSelectionCells(){
+  if(!_selStart||!_selEnd)return[];
+  const{r:r1,c:c1}=_selStart,{r:r2,c:c2}=_selEnd;
+  const dr=r2-r1,dc=c2-c1;
+  if(dr!==0&&dc!==0&&Math.abs(dr)!==Math.abs(dc))return[];
+  const len=Math.max(Math.abs(dr),Math.abs(dc));
+  const sr=dr===0?0:Math.sign(dr),sc=dc===0?0:Math.sign(dc);
+  const cells=[];
+  for(let i=0;i<=len;i++)cells.push([r1+sr*i,c1+sc*i]);
+  return cells;
+}
+
+function snapEnd(start,raw){
+  if(!start)return raw;
+  const dr=raw.r-start.r,dc=raw.c-start.c;
+  if(dr===0&&dc===0)return raw;
+  const aR=Math.abs(dr),aC=Math.abs(dc);
+  let sr,sc;
+  if(aR===0){sr=0;sc=Math.sign(dc);}
+  else if(aC===0){sr=Math.sign(dr);sc=0;}
+  else if(aR===aC){sr=Math.sign(dr);sc=Math.sign(dc);}
+  else if(aR>aC){sr=Math.sign(dr);sc=0;}
+  else{sr=0;sc=Math.sign(dc);}
+  const len=sr===0?aC:sc===0?aR:Math.min(aR,aC);
+  return{r:start.r+sr*len,c:start.c+sc*len};
+}
+
+function getCellFromEvent(e,cv){
+  const CS=Math.floor(cv.width/GRID);
+  const rect=cv.getBoundingClientRect();
+  const sx=cv.width/rect.width,sy=cv.height/rect.height;
+  const px=(e.clientX-rect.left)*sx,py=(e.clientY-rect.top)*sy;
+  const dc=Math.floor(px/CS),dr=Math.floor(py/CS);
+  if(dc<0||dc>=GRID||dr<0||dr>=GRID)return null;
+  const[r,c]=d2b(dr,dc,_rot);
+  return{r,c};
+}
+
+// ── Canvas Events ──────────────────────────────────────────
+function initCanvasEvents(cv){
+  cv.addEventListener('mousedown',e=>{
+    if(!_grid||!GS||GS.winner||_elim[myColor])return;
+    const cell=getCellFromEvent(e,cv);
+    if(!cell)return;
+    _mouseDown=true;_selStart=cell;_selEnd=cell;paint();
+  });
+  cv.addEventListener('mousemove',e=>{
+    if(!_mouseDown||!_selStart)return;
+    const raw=getCellFromEvent(e,cv);
+    if(!raw)return;
+    _selEnd=snapEnd(_selStart,raw);paint();
+  });
+  cv.addEventListener('mouseup',()=>{
+    if(!_mouseDown)return;
+    _mouseDown=false;finalizeSelection();
+  });
+  cv.addEventListener('mouseleave',()=>{
+    if(_mouseDown){_mouseDown=false;_selStart=null;_selEnd=null;paint();}
+  });
+  cv.addEventListener('touchstart',e=>{
+    e.preventDefault();
+    if(!_grid||!GS||GS.winner||_elim[myColor])return;
+    const cell=getCellFromEvent(e.touches[0],cv);
+    if(!cell)return;
+    _mouseDown=true;_selStart=cell;_selEnd=cell;paint();
+  },{passive:false});
+  cv.addEventListener('touchmove',e=>{
+    e.preventDefault();
+    if(!_mouseDown||!_selStart)return;
+    const raw=getCellFromEvent(e.touches[0],cv);
+    if(!raw)return;
+    _selEnd=snapEnd(_selStart,raw);paint();
+  },{passive:false});
+  cv.addEventListener('touchend',e=>{
+    e.preventDefault();
+    _mouseDown=false;finalizeSelection();
+  },{passive:false});
+}
+
+// ── Word Validation & Submission ───────────────────────────
+function finalizeSelection(){
+  const cells=getSelectionCells();
+  if(cells.length>=3){
+    const idx=checkWordSelection(cells);
+    if(idx!==null){
+      submitWordFind(idx,cells);
+    } else if(cells.length>=2){
+      showToast('Not a word — keep searching!');
+    }
+  }
+  _selStart=null;_selEnd=null;paint();
+}
+
+function checkWordSelection(cells){
+  const forward=cells.map(([r,c])=>_grid[r]?.[c]||'').join('');
+  const backward=[...forward].reverse().join('');
+  const myFound=_myTeam==='A'?_foundA:_foundB;
+  for(let i=0;i<_words.length;i++){
+    if(myFound[i]!==undefined)continue;
+    const w=_words[i].word;
+    if((forward===w||backward===w)&&cells.length===w.length)return i;
+  }
+  return null;
+}
+
+function submitWordFind(wordIdx,cells){
+  const flatCells=cells.flat();
+  const lk=push(ref(db,`wordRooms/${roomId}/foundLog/${_myTeam}`)).key;
+  const upd={};
+  upd[`wordRooms/${roomId}/teamFound/${_myTeam}/${wordIdx}`]={
+    color:myColor,name:myName,cells:flatCells,ts:Date.now()
+  };
+  upd[`wordRooms/${roomId}/foundLog/${_myTeam}/${lk}`]={
+    color:myColor,name:myName,word:_words[wordIdx].word,ts:Date.now()
+  };
+  update(ref(db),upd);
+  const w=_words[wordIdx].word;
+  showToast(`✓ "${w}" found by ${PM[myColor].label}!`);
+}
+
+// ── Cell Colors ────────────────────────────────────────────
+function rebuildCellColors(){
+  _cellColors={};
+  const myFound=_myTeam==='A'?_foundA:_foundB;
+  Object.values(myFound).forEach(info=>{
+    if(!info.cells)return;
+    const arr=Array.isArray(info.cells)?info.cells:Object.values(info.cells);
+    for(let i=0;i+1<arr.length;i+=2){
+      _cellColors[`${+arr[i]},${+arr[i+1]}`]=info.color;
+    }
+  });
+}
+
+// ── Snapshot Handler ───────────────────────────────────────
+function applySnap(snap){
+  const d=snap.val();if(!d)return;
+  GS=d;
+  _foundA=d.teamFound?.A||{};
+  _foundB=d.teamFound?.B||{};
+  _elim=d.eliminated||{};
+  rebuildCellColors();
+  paint();
+  updateProgress();
+  renderWordList();
+  renderPlayers(d.players||{});
+  renderFoundLog(d.foundLog?.[_myTeam]||{});
+  handleDrawUI(d.drawVotes||{});
+
+  if(d.winner){
+    const wt=d.winner==='draw'?'🤝 Draw agreed!':
+      d.winner===_myTeam?'🏆 Your Team Wins!':'💀 Enemy Team Wins!';
+    document.getElementById('td').textContent=wt;
+    if(d.winner!==_lastWinner){
+      _lastWinner=d.winner;
+      const title=d.winner==='draw'?'DRAW':d.winner===_myTeam?'YOUR TEAM WINS!':'ENEMY TEAM WINS!';
+      const sub=d.winner==='draw'?'Both teams accepted the draw.':
+        d.winner===_myTeam?'You found all words first! 🎉':'The enemy found all words first.';
+      showNotif(title,sub+'  ✦ Click any word below to learn its meaning!',6000);
+      // Re-render word list after notif to enable all chips
+      setTimeout(renderWordList,400);
+    }
+  } else {
+    if(_elim[myColor]){
+      document.getElementById('td').textContent='Resigned — spectating…';
+    } else {
+      document.getElementById('td').textContent='Find words faster than the enemy!';
+    }
+    checkWin();
+  }
+}
+
+function checkWin(){
+  if(!GS||GS.winner||!_words.length)return;
+  const myFound=_myTeam==='A'?_foundA:_foundB;
+  if(Object.keys(myFound).length>=_words.length){
+    update(roomRef,{winner:_myTeam});
+  }
+}
+
+// ── Progress Bars ──────────────────────────────────────────
+function updateProgress(){
+  const wrap=document.getElementById('prog-wrap');
+  if(!wrap||!_words.length)return;
+  const total=_words.length;
+  const myFound=_myTeam==='A'?_foundA:_foundB;
+  const oppFound=_myTeam==='A'?_foundB:_foundA;
+
+  const myScore={};
+  COLORS.filter(c=>TEAMS[c]===_myTeam).forEach(c=>myScore[c]=0);
+  Object.values(myFound).forEach(info=>{if(myScore[info.color]!==undefined)myScore[info.color]++;});
+  const myTotal=Object.values(myScore).reduce((a,b)=>a+b,0);
+  const myPct=Math.round(myTotal/total*100);
+  const oppTotal=Object.keys(oppFound).length;
+  const oppPct=Math.round(oppTotal/total*100);
+
+  const myColors=COLORS.filter(c=>TEAMS[c]===_myTeam);
+  const oppColors=COLORS.filter(c=>TEAMS[c]===_oppTeam);
+
+  const myHTML=myColors.map(c=>{
+    const pm=PM[c];const s=myScore[c]||0;const el=_elim[c];
+    const pct2=Math.round(s/total*100);
+    return`<div class="player-row">
+      <div class="prog-dot" style="background:${pm.dot}"></div>
+      <span class="prog-name${el?' elim':''}">${pm.label}</span>
+      <div class="prog-track-sm"><div class="prog-fill-sm" style="width:${pct2}%;background:${pm.prog}"></div></div>
+      <span class="prog-pct-sm">${s}/${total}</span>
+    </div>`;
+  }).join('');
+
+  const oppHTML=oppColors.map(c=>{
+    const pm=PM[c];const el=_elim[c];
+    return`<div class="opp-player">
+      <div class="prog-dot" style="background:${pm.dot}"></div>
+      <span class="opp-name${el?' elim':''}">${pm.label}</span>
+      <div style="flex:1"></div>
+      <span style="font-size:9px;color:#506080">???</span>
+    </div>`;
+  }).join('');
+
+  wrap.innerHTML=`
+    <div class="team-bar-block us">
+      <div class="team-bar-header">
+        <span class="team-label">⚔ OUR TEAM</span>
+        <span class="team-tag">Team ${_myTeam}</span>
+        <span class="team-pct-big">${myTotal}/${total}</span>
+      </div>
+      <div class="team-main-track"><div class="team-main-fill" style="width:${myPct}%"></div></div>
+      <div class="player-rows">${myHTML}</div>
+    </div>
+    <div class="team-bar-block them">
+      <div class="team-bar-header">
+        <span class="team-label" style="color:#40b060">🔒 ENEMY TEAM</span>
+        <span class="team-tag">Team ${_oppTeam}</span>
+        <span class="team-pct-big" style="color:#40b060">${oppTotal}/${total}</span>
+      </div>
+      <div class="team-main-track"><div class="team-main-fill" style="width:${oppPct}%;background:linear-gradient(90deg,#208040,#40b060)"></div></div>
+      <div class="opp-mystery">${oppHTML}</div>
+    </div>`;
+}
+
+// ── Word List ──────────────────────────────────────────────
+function renderWordList(){
+  const grid=document.getElementById('word-list-grid');
+  const countEl=document.getElementById('word-count');
+  if(!grid||!_words.length)return;
+  const myFound=_myTeam==='A'?_foundA:_foundB;
+  const gameOver=!!GS?.winner;
+  const foundCount=Object.keys(myFound).length;
+  if(countEl)countEl.textContent=`${foundCount}/${_words.length}`;
+
+  grid.innerHTML=_words.map((w,i)=>{
+    const info=myFound[i];
+    const found=info!==undefined;
+    const pm=found?PM[info.color]:null;
+    const clickable=found||gameOver;
+    let style='';
+    if(found){
+      style=`color:${pm.dot};text-decoration-color:${pm.dot};`;
+    }
+    return`<div class="word-chip${found?' found':''}${(!found&&gameOver)?' gameend':''}"
+      data-widx="${i}" style="${style}"
+      title="${clickable?'Click to see meaning':w.word}"
+    >${w.word}</div>`;
+  }).join('');
+}
+
+// ── Meaning Popup ──────────────────────────────────────────
+function showMeaning(idx){
+  if(idx<0||idx>=_words.length)return;
+  const w=_words[idx];
+  document.getElementById('meaning-word').textContent=w.word;
+  document.getElementById('meaning-cat').textContent=w.category;
+  document.getElementById('meaning-text').textContent=w.meaning;
+  document.getElementById('meaning-modal').style.display='flex';
+}
+
+// ── Discovery Log ──────────────────────────────────────────
+function renderFoundLog(log){
+  const ml=document.getElementById('ml');if(!ml)return;
+  ml.innerHTML=Object.entries(log).sort(([a],[b])=>a<b?1:-1).slice(0,50).map(([,e])=>
+    `<div class="le ${e.color}">${PM[e.color]?.label||'?'} found ${e.word}</div>`
+  ).join('');
+}
+
+// ── Players List ───────────────────────────────────────────
+function renderPlayers(players){
+  const html=COLORS.map(c=>{
+    const pm=PM[c];
+    const p=Object.values(players).find(x=>x.color===c);
+    const el=_elim[c];
+    const team=TEAMS[c];
+    const badge=`<span style="font-size:9px;padding:1px 5px;border-radius:3px;background:${team==='A'?'rgba(224,80,80,.15)':'rgba(64,176,96,.15)'};color:${team==='A'?'#e05050':'#40b060'}">${team}</span>`;
+    const status=el?'<span style="color:#e74c3c;font-size:9px">RESIGNED</span>':'';
+    return`<div class="pr">
+      <div class="pd" style="background:${pm.dot}"></div>
+      <span class="pnl">${p?esc(p.name):pm.label}</span>
+      ${badge}${status}
+    </div>`;
+  }).join('');
+  ['pl','mob-pl'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=html;});
+}
+
+// ── Chat ───────────────────────────────────────────────────
+function sendTeam(t){if(!t.trim()||!roomId)return;push(ref(db,`wordRooms/${roomId}/chat/team${_myTeam}`),{text:t.trim(),name:myName,color:myColor,ts:Date.now()});}
+function sendPublic(t){if(!t.trim()||!roomId)return;push(ref(db,`wordRooms/${roomId}/chat/public`),{text:t.trim(),name:myName,color:myColor,ts:Date.now()});}
+function addMsg(c,m,mine){const d=document.createElement('div');d.className=`msg ${mine?'me':'ot'}`;const ac=m.color==='system'?'system':m.color;d.innerHTML=`<span class="ma ${ac}">${esc(m.name)}</span><span class="mt">${esc(m.text)}</span>`;c.appendChild(d);c.scrollTop=c.scrollHeight;}
+function syncChat(r2,ids){onValue(r2,snap=>{const msgs=snap.val()||{};ids.forEach(id=>{const el=document.getElementById(id);if(!el)return;el.innerHTML='';Object.values(msgs).sort((a,b)=>a.ts-b.ts).forEach(m=>addMsg(el,m,m.name===myName));});});}
+
+// ── Draw Vote ──────────────────────────────────────────────
+function handleDrawUI(votes){
+  const ov=document.getElementById('vote-overlay');
+  const anyYes=Object.values(votes).some(v=>v===true);
+  if(!anyYes){ov.style.display='none';return;}
+  if(votes[myColor]===true||votes[myColor]===false){ov.style.display='none';}
+  else{ov.style.display='flex';}
+  if(COLORS.some(c=>votes[c]===false)){
+    const cl={};COLORS.forEach(c=>{cl[`wordRooms/${roomId}/drawVotes/${c}`]=null;});
+    update(ref(db),cl);ov.style.display='none';showToast('Draw declined.');return;
+  }
+  const active=COLORS.filter(c=>!_elim[c]);
+  if(active.length>0&&active.every(c=>votes[c]===true)){update(roomRef,{winner:'draw'});ov.style.display='none';}
+}
+
+// ── Resign ─────────────────────────────────────────────────
+function resign(){
+  if(!roomId||GS?.winner)return;
+  if(!confirm(`Resign as ${PM[myColor]?.label}? Your teammate can still play.`))return;
+  const upd={};
+  upd[`wordRooms/${roomId}/eliminated/${myColor}`]=true;
+  const pk=push(ref(db,`wordRooms/${roomId}/chat/public`)).key;
+  upd[`wordRooms/${roomId}/chat/public/${pk}`]={text:`${PM[myColor].label} (${myName}) resigned.`,name:'System',color:'system',ts:Date.now()};
+  update(ref(db),upd);
+}
+
+// ── Helpers ────────────────────────────────────────────────
+function showNotif(title,sub,dur=2800){const n=document.getElementById('board-notif');document.getElementById('bn-title').textContent=title;document.getElementById('bn-sub').textContent=sub;n.classList.add('show');setTimeout(()=>n.classList.remove('show'),dur);}
+function showToast(msg,dur=2400){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ── Resize Canvas ──────────────────────────────────────────
+function resizeCanvas(){
+  const cv=document.getElementById('gc');
+  const col=document.getElementById('center-col');
+  if(!cv||!col)return;
+  const mob=window.innerWidth<=640;
+  let sz;
+  if(mob){
+    const vw=window.innerWidth,vh=window.innerHeight;
+    sz=Math.min(vw-8,vh-250,480);sz=Math.max(sz,200);
+  } else {
+    const colW=col.clientWidth||600;
+    const maxH=window.innerHeight-240;
+    sz=Math.min(colW-18,maxH,600);sz=Math.max(sz,300);
+  }
+  sz=Math.floor(sz/GRID)*GRID;
+  cv.width=sz;cv.height=sz;cv.style.width=sz+'px';cv.style.height=sz+'px';
+  paint();
+}
+
+// ── Join / Create Room ─────────────────────────────────────
+async function joinRoom(){
+  const name=document.getElementById('ni').value.trim();
+  const rid=document.getElementById('ri').value.trim().toUpperCase();
+  if(!name){document.getElementById('stat').textContent='Enter your name!';return;}
+  if(!myColor){document.getElementById('stat').textContent='Choose a colour!';return;}
+  myName=name;myUid='u'+Date.now()+Math.random().toString(36).slice(2,6);
+  _myTeam=TEAMS[myColor];_oppTeam=_myTeam==='A'?'B':'A';
+  document.getElementById('stat').textContent='Connecting…';
+  try{
+    let fid=rid;
+    if(!rid){
+      fid='W'+Math.random().toString(36).slice(2,7).toUpperCase();
+      await set(ref(db,`wordRooms/${fid}`),{
+        created:Date.now(),players:{},
+        teamFound:{A:{},B:{}},
+        eliminated:{red:false,blue:false,green:false,gold:false},
+        winner:null,drawVotes:{},foundLog:{A:{},B:{}}
+      });
+    } else {
+      const chk=await get(ref(db,`wordRooms/${fid}`));
+      if(!chk.exists()){document.getElementById('stat').textContent='Room not found!';return;}
+    }
+    const ps=await get(ref(db,`wordRooms/${fid}/players`));
+    const taken=Object.values(ps.val()||{}).some(p=>p.color===myColor);
+    if(taken){document.getElementById('stat').textContent='Colour taken! Choose another.';return;}
+    roomId=fid;
+    await set(ref(db,`wordRooms/${roomId}/players/${myUid}`),{name,color:myColor,online:true});
+    onDisconnect(ref(db,`wordRooms/${roomId}/players/${myUid}/online`)).set(false);
+    startGame(roomId);
+  } catch(err){document.getElementById('stat').textContent='Error: '+err.message;}
+}
+
+// ── Start Game ─────────────────────────────────────────────
+function startGame(rid){
+  roomId=rid;roomRef=ref(db,`wordRooms/${roomId}`);
+  const{grid,words,placements}=generateWordSearch(roomId);
+  _grid=grid;_words=words;_placements=placements;
+
+  document.getElementById('ls').classList.remove('active');
+  document.getElementById('gs').classList.add('active');
+  document.getElementById('rs').textContent=roomId;
+  document.getElementById('tld').textContent='Team '+_myTeam;
+  resizeCanvas();window.addEventListener('resize',resizeCanvas);
+  paint();renderWordList();
+
+  const cv=document.getElementById('gc');
+  initCanvasEvents(cv);
+
+  // Word list click → meaning
+  document.getElementById('word-list-grid').addEventListener('click',e=>{
+    const chip=e.target.closest('.word-chip');
+    if(!chip)return;
+    const idx=parseInt(chip.dataset.widx);
+    if(isNaN(idx))return;
+    const myFound=_myTeam==='A'?_foundA:_foundB;
+    if(myFound[idx]!==undefined||GS?.winner)showMeaning(idx);
+  });
+
+  // Meaning modal close
+  document.getElementById('meaning-close').addEventListener('click',()=>document.getElementById('meaning-modal').style.display='none');
+  document.getElementById('meaning-modal').addEventListener('click',e=>{if(e.target.id==='meaning-modal')document.getElementById('meaning-modal').style.display='none';});
+
+  onValue(roomRef,applySnap);
+  syncChat(ref(db,`wordRooms/${roomId}/chat/team${_myTeam}`),['tcm','mob-tcm']);
+  syncChat(ref(db,`wordRooms/${roomId}/chat/public`),['pcm','mob-pcm']);
+
+  document.getElementById('rotbtn').addEventListener('click',()=>{_rot=(_rot+1)%4;paint();showToast('Rotated '+(_rot*90)+'°');});
+  document.getElementById('themebtn').addEventListener('click',()=>{_tIdx=(_tIdx+1)%THEMES.length;paint();showToast('Theme: '+THEMES[_tIdx].name);});
+  document.getElementById('resbtn').addEventListener('click',resign);
+  document.getElementById('drawbtn').addEventListener('click',()=>{if(GS?.winner||_elim[myColor])return;update(ref(db,`wordRooms/${roomId}/drawVotes`),{[myColor]:true});showToast('Draw proposed…');});
+  document.getElementById('vote-yes').addEventListener('click',()=>{update(ref(db,`wordRooms/${roomId}/drawVotes`),{[myColor]:true});document.getElementById('vote-overlay').style.display='none';});
+  document.getElementById('vote-no').addEventListener('click',()=>{update(ref(db,`wordRooms/${roomId}/drawVotes`),{[myColor]:false});document.getElementById('vote-overlay').style.display='none';});
+
+  // Team chat
+  const st=()=>{const i=document.getElementById('tci');sendTeam(i.value);i.value='';};
+  document.getElementById('tsb').addEventListener('click',st);
+  document.getElementById('tci').addEventListener('keydown',e=>{if(e.key==='Enter')st();});
+  const stm=()=>{const i=document.getElementById('mob-tci');sendTeam(i.value);i.value='';};
+  document.getElementById('mob-tsb').addEventListener('click',stm);
+  document.getElementById('mob-tci').addEventListener('keydown',e=>{if(e.key==='Enter')stm();});
+
+  // Public chat
+  const sp2=()=>{const i=document.getElementById('pci');sendPublic(i.value);i.value='';};
+  document.getElementById('psb').addEventListener('click',sp2);
+  document.getElementById('pci').addEventListener('keydown',e=>{if(e.key==='Enter')sp2();});
+  const spm=()=>{const i=document.getElementById('mob-pci');sendPublic(i.value);i.value='';};
+  document.getElementById('mob-psb').addEventListener('click',spm);
+  document.getElementById('mob-pci').addEventListener('keydown',e=>{if(e.key==='Enter')spm();});
+
+  // Mobile drawer
+  const drawer=document.getElementById('mob-drawer');
+  const openbtn=document.getElementById('mob-openbtn');
+  if(window.innerWidth<=640)drawer.style.display='flex';
+  openbtn.addEventListener('click',()=>drawer.classList.toggle('open'));
+  document.getElementById('mob-handle').addEventListener('click',()=>drawer.classList.toggle('open'));
+  document.querySelectorAll('.mob-tab').forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      document.querySelectorAll('.mob-tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.mob-panel').forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');document.getElementById('mob-'+tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  push(ref(db,`wordRooms/${roomId}/chat/public`),{text:`${PM[myColor].label} (${myName}) joined — Team ${_myTeam}!`,name:'System',color:'system',ts:Date.now()});
+  showNotif('GAME ON','Drag across letters to find hidden words!',3000);
+}
+
+// ── Init ───────────────────────────────────────────────────
+document.querySelectorAll('.cc').forEach(el=>{
+  el.addEventListener('click',()=>{
+    document.querySelectorAll('.cc').forEach(c=>c.classList.remove('sel'));
+    el.classList.add('sel');myColor=el.dataset.color;
+    _myTeam=TEAMS[myColor];_oppTeam=_myTeam==='A'?'B':'A';
+  });
+});
+document.getElementById('jb').addEventListener('click',joinRoom);
+document.getElementById('ni').addEventListener('keydown',e=>{if(e.key==='Enter')joinRoom();});
+document.getElementById('ri').addEventListener('keydown',e=>{if(e.key==='Enter')joinRoom();});
+
+// ── Light / Dark Toggle ────────────────────────────────────
+(function(){
+  const btn=document.getElementById('uimode-btn');
+  let light=false;
+  try{if(localStorage.getItem('sh_ui2')==='light'){light=true;document.body.classList.add('light');btn.textContent='☀️';btn.title='Switch to Dark';}}catch(e){}
+  btn.addEventListener('click',()=>{
+    light=!light;document.body.classList.toggle('light',light);
+    btn.textContent=light?'☀️':'🌙';btn.title=light?'Switch to Dark':'Switch to Light';
+    try{localStorage.setItem('sh_ui2',light?'light':'dark');}catch(e){}
+    paint();
+  });
+})();
+</script>
+</body>
+</html>
