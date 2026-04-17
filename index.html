@@ -12,11 +12,12 @@ body{background:#0a1628;background-image:radial-gradient(ellipse 80% 50% at 50% 
 .screen{display:none;width:100vw;height:100vh}
 .screen.active{display:flex}
 #ls{align-items:center;justify-content:center}
+
+/* ── Login ─────────────────────────────────────────────── */
 .lw{display:flex;flex-direction:column;align-items:center;gap:22px;padding:20px}
-.crown{font-size:52px;text-align:center;filter:drop-shadow(0 0 18px rgba(212,160,23,.65));animation:fl 3s ease-in-out infinite}
-@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 .gtitle{font-family:'Cinzel',serif;font-size:clamp(24px,5vw,48px);font-weight:900;letter-spacing:.16em;background:linear-gradient(135deg,#b8860b,#f0c040,#ffe680,#b8860b);background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:sh 4s ease infinite;text-align:center}
 @keyframes sh{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 .gsub{font-style:italic;font-size:14px;color:#9080a0;text-align:center;margin-top:2px}
 .lcard{background:rgba(8,14,30,.97);border:1px solid rgba(180,140,50,.28);border-radius:16px;padding:26px;width:min(440px,93vw);display:flex;flex-direction:column;gap:14px;box-shadow:0 0 60px rgba(0,0,0,.75)}
 input[type=text]{width:100%;background:rgba(8,16,40,.85);border:1px solid #1e3a6e;border-radius:7px;color:#e8d5a0;font-family:'Cinzel',serif;font-size:13px;padding:10px 13px;outline:none;transition:border-color .2s}
@@ -39,89 +40,127 @@ input[type=text]:focus{border-color:#b8860b;box-shadow:0 0 10px rgba(180,140,50,
 .btn{background:linear-gradient(135deg,#7d5a00,#b8860b);border:1px solid #d4a017;border-radius:7px;color:#050b18;font-family:'Cinzel',serif;font-size:12px;font-weight:700;letter-spacing:.07em;padding:10px 16px;cursor:pointer;transition:all .2s;white-space:nowrap}
 .btn:hover{background:linear-gradient(135deg,#b8860b,#d4a017);box-shadow:0 0 16px rgba(212,160,23,.4);transform:translateY(-1px)}
 #stat{text-align:center;font-style:italic;color:#b8860b;font-size:13px;min-height:18px}
+
+/* ── Game layout ─────────────────────────────────────── */
 #gs{overflow:hidden;align-items:stretch}
-.gl{display:grid;grid-template-columns:210px 1fr 210px;width:100%;height:100vh}
-.sp{background:rgba(4,9,20,.97);border-right:1px solid rgba(180,140,50,.14);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;transition:background .35s}
-.rp{border-right:none;border-left:1px solid rgba(180,140,50,.14)}
-.ph{display:flex;align-items:center;gap:8px;padding:11px 13px;background:rgba(180,140,50,.07);border-bottom:1px solid rgba(180,140,50,.13);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.13em;font-weight:700;color:#d4a017;text-transform:uppercase;flex-shrink:0}
-.tbadge{margin-left:auto;background:rgba(255,255,255,.07);border-radius:100px;padding:2px 9px;font-size:9px}
-.cm{flex:1;overflow-y:auto;padding:9px;display:flex;flex-direction:column;gap:6px;min-height:0}
-.cm::-webkit-scrollbar{width:3px}.cm::-webkit-scrollbar-thumb{background:#1e3a6e;border-radius:2px}
-.msg{display:flex;flex-direction:column;gap:2px;padding:6px 9px;border-radius:7px;animation:fu .2s ease;max-width:94%}
-@keyframes fu{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-.msg.me{background:rgba(140,100,10,.82);align-self:flex-end}
-.msg.ot{background:rgba(10,20,50,.80);align-self:flex-start}
-.msg.sy{background:rgba(6,12,26,.65);align-self:center;text-align:center;border-radius:6px;padding:3px 8px}
-.ma{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.07em;font-weight:700}
-.ma.red{color:#82b1ff}.ma.blue{color:#00c853}.ma.green{color:#ce93d8}.ma.gold{color:#ffab00}.ma.system{color:#506080}
-.mt{font-size:13px;color:#e8d5a0;line-height:1.4;word-break:break-word}
-.msg.sy .mt{font-size:11px;color:#506080;font-style:italic}
-.cir{display:flex;gap:6px;padding:8px 10px;border-top:1px solid rgba(180,140,50,.25);flex-shrink:0;background:rgba(6,12,26,.65);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:background .35s}
-.cir input{flex:1;font-size:13px;padding:7px 10px}
-.sb{background:rgba(180,140,50,.12);border:1px solid #6b3d10;border-radius:6px;color:#d4a017;font-size:14px;width:32px;min-width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.sb:hover{background:rgba(180,140,50,.26);color:#ffe680}
-.pls{border-top:1px solid rgba(180,140,50,.1);padding:8px 10px;flex-shrink:0}
-.stl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.13em;color:#506080;text-transform:uppercase;margin-bottom:5px}
-.pr{display:flex;align-items:center;gap:6px;padding:3px 6px;border-radius:5px;font-size:11px;background:rgba(255,255,255,.02);margin-bottom:2px}
-.pd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.pnl{color:#e8d5a0;flex:1;font-size:11px}.ps{font-size:10px;color:#506080}
-.rid{font-family:'Cinzel',serif;font-size:10px;color:#506080;text-align:center;margin-top:5px}.rid span{color:#b8860b;font-weight:700}
-.cc2{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:4px;padding:4px 6px;overflow-y:auto;min-height:0;background:rgba(6,10,22,.55);transition:background .35s}
-.ctrls{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center;padding:2px 0;flex-shrink:0}
-#td{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;color:#d4a017;padding:4px 14px;background:rgba(180,140,50,.07);border:1px solid rgba(180,140,50,.16);border-radius:100px;white-space:nowrap}
+.gl{display:grid;grid-template-columns:56fr 24fr 20fr;width:100%;height:100vh;overflow:hidden;align-items:stretch}
+
+/* ── Game column ── */
+.game-col{display:flex;flex-direction:column;overflow:hidden;background:rgba(6,10,22,.55);padding:8px 6px 6px;gap:5px;height:100vh}
+
+/* Profile row */
+.profile-row{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:6px;padding:2px 4px}
+.profile-slot{display:flex;align-items:center;gap:6px}
+.profile-slot.right{flex-direction:row-reverse}
+.pcard{display:flex;flex-direction:column;align-items:center;gap:3px}
+.profile-pic{width:38px;height:38px;border-radius:50%;border:2px solid rgba(255,255,255,.15);background:rgba(20,30,60,.6);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#506080;font-size:16px;transition:border-color .3s}
+.profile-pic.my{border-color:#3b82f6;box-shadow:0 0 8px rgba(59,130,246,.35)}
+.profile-pic.opp{border-color:#f97316;box-shadow:0 0 8px rgba(249,115,22,.3)}
+.profile-name{font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:#c0c8d8;letter-spacing:.05em;white-space:nowrap;max-width:55px;overflow:hidden;text-overflow:ellipsis;text-align:center}
+.profile-name.my{color:#3b82f6}
+.profile-name.opp{color:#f97316}
+.profile-center{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1}
+
+/* Vertical progress bars */
+.board-and-bars{display:flex;align-items:stretch;justify-content:center;gap:8px;flex:1;min-height:0;padding:0 2px;overflow:hidden}
+.vbar-group{display:flex;flex-direction:row;align-items:stretch;gap:5px;flex-shrink:0;padding:4px 2px;min-width:0}
+.vbar-wrap{display:flex;flex-direction:column;align-items:center;gap:3px;width:26px}
+.vbar-pic{width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,.2);background:rgba(20,30,60,.6);display:flex;align-items:center;justify-content:center;font-size:10px;overflow:hidden;flex-shrink:0}
+.vbar-pic.my{border-color:#3b82f6;box-shadow:0 0 5px rgba(59,130,246,.4)}
+.vbar-pic.opp{border-color:#f97316;box-shadow:0 0 5px rgba(249,115,22,.3)}
+.vbar-count{font-family:'Cinzel',serif;font-size:9px;font-weight:900;min-height:12px;text-align:center}
+.vbar-count.my{color:#3b82f6}
+.vbar-count.opp{color:#f97316}
+.vbar-track{flex:1;width:10px;background:rgba(255,255,255,.07);border-radius:5px;overflow:hidden;position:relative;min-height:60px}
+.vbar-fill{position:absolute;bottom:0;left:0;right:0;border-radius:5px;transition:height .6s cubic-bezier(.4,0,.2,1)}
+.vbar-fill.my{background:linear-gradient(to top,#1d4ed8,#3b82f6)}
+.vbar-fill.opp{background:linear-gradient(to top,#c2410c,#f97316)}
+.vbar-name{font-family:'Cinzel',serif;font-size:7px;font-weight:700;letter-spacing:.04em;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:26px}
+.vbar-name.my{color:#3b82f6}
+.vbar-name.opp{color:#f97316}
+.board-outer{position:relative;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+#gc{display:block;border-radius:3px;cursor:crosshair;touch-action:none;box-shadow:0 0 0 1px rgba(160,190,220,.18),0 4px 20px rgba(0,0,0,.5)}
+
+/* Game bottom */
+.game-bottom{display:flex;flex-direction:column;align-items:center;gap:5px;flex-shrink:0;padding:0 4px 4px}
+.sel-info{font-family:'Cinzel',serif;font-size:10px;color:#506080;min-height:13px;text-align:center;letter-spacing:.05em;flex-shrink:0}
+
+/* Controls */
+.ctrls{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center;flex-shrink:0}
 .rotbtn{background:rgba(180,140,50,.1);border:1px solid rgba(180,140,50,.3);border-radius:7px;color:#d4a017;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.06em;padding:4px 9px;cursor:pointer;transition:all .15s;white-space:nowrap}
 .rotbtn:hover{background:rgba(180,140,50,.22);color:#ffe680}
 .actbtn{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.32);border-radius:6px;color:#e74c3c;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.05em;padding:4px 9px;cursor:pointer;transition:all .15s;white-space:nowrap}
 .actbtn:hover{background:rgba(231,76,60,.26);color:#ff8070}
 .drawbtn{background:rgba(80,160,255,.09);border:1px solid rgba(80,160,255,.32);border-radius:6px;color:#60a8ff;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.05em;padding:4px 9px;cursor:pointer;transition:all .15s;white-space:nowrap}
 .drawbtn:hover{background:rgba(80,160,255,.22);color:#90c8ff}
-.team-prog-wrap{width:100%;max-width:520px;display:flex;flex-direction:column;gap:5px;flex-shrink:0}
-.team-bar-block{border-radius:8px;padding:7px 10px;border:1px solid;display:flex;flex-direction:column;gap:5px}
-.team-bar-block.us{background:rgba(224,80,80,.06);border-color:rgba(224,80,80,.2)}
-.team-bar-block.them{background:rgba(64,176,96,.06);border-color:rgba(64,176,96,.2)}
-.team-bar-header{display:flex;align-items:center;gap:8px}
-.team-label{font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:.1em}
-.team-bar-block.us .team-label{color:#e05050}
-.team-bar-block.them .team-label{color:#40b060}
-.team-tag{font-family:'Cinzel',serif;font-size:9px;padding:1px 7px;border-radius:100px;letter-spacing:.06em}
-.team-bar-block.us .team-tag{background:rgba(224,80,80,.15);color:#e05050;border:1px solid rgba(224,80,80,.3)}
-.team-bar-block.them .team-tag{background:rgba(64,176,96,.15);color:#40b060;border:1px solid rgba(64,176,96,.3)}
-.team-pct-big{margin-left:auto;font-family:'Cinzel',serif;font-size:12px;font-weight:700}
-.team-bar-block.us .team-pct-big{color:#e05050}
-.team-bar-block.them .team-pct-big{color:#40b060}
-.team-main-track{width:100%;height:10px;background:rgba(255,255,255,.07);border-radius:5px;overflow:hidden}
-.team-main-fill{height:100%;border-radius:5px;transition:width .6s ease}
-.team-bar-block.us .team-main-fill{background:linear-gradient(90deg,#c02020,#e05050)}
-.team-bar-block.them .team-main-fill{background:linear-gradient(90deg,#208040,#40b060)}
-.player-rows{display:flex;flex-direction:column;gap:3px}
-.player-row{display:flex;align-items:center;gap:5px;padding:2px 0}
-.prog-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;border:1px solid rgba(255,255,255,.14)}
-.prog-name{font-family:'Cinzel',serif;font-size:9px;color:#c0c8d8;min-width:40px;white-space:nowrap}
-.prog-name.elim{text-decoration:line-through;opacity:.4;color:#e74c3c}
-.prog-track-sm{flex:1;height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden;min-width:40px}
-.prog-fill-sm{height:100%;border-radius:3px;transition:width .5s ease}
-.prog-pct-sm{font-family:'Cinzel',serif;font-size:8px;color:#7080a0;min-width:36px;text-align:right}
-.opp-mystery{display:flex;flex-direction:column;gap:3px}
-.opp-player{display:flex;align-items:center;gap:5px;padding:2px 0}
-.opp-name{font-family:'Cinzel',serif;font-size:9px;color:#c0c8d8;min-width:40px;white-space:nowrap}
-.opp-name.elim{text-decoration:line-through;opacity:.4;color:#e74c3c}
-.board-outer{position:relative;flex-shrink:0}
-#gc{display:block;border-radius:3px;cursor:crosshair;touch-action:none;box-shadow:0 0 0 1px rgba(160,190,220,.2),0 4px 20px rgba(0,0,0,.6)}
-.sel-info{font-family:'Cinzel',serif;font-size:10px;color:#506080;min-height:14px;text-align:center;letter-spacing:.05em}
 
-/* ── Word List Panel ──────────────────────────────────────── */
-.word-list-panel{width:100%;max-width:520px;background:rgba(4,9,20,.65);border-radius:8px;padding:9px 12px;border:1px solid rgba(180,140,50,.15);flex-shrink:0}
-.word-list-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+/* Timer */
+#td{font-family:'Cinzel',serif;font-size:22px;font-weight:900;letter-spacing:.18em;color:#ffe680;text-align:center;text-shadow:0 0 20px rgba(255,200,0,.3)}
+#td.urgent{color:#e74c3c;text-shadow:0 0 16px rgba(231,76,60,.5);animation:pulse-timer .6s ease-in-out infinite}
+@keyframes pulse-timer{0%,100%{opacity:1}50%{opacity:.55}}
+
+/* Word List Panel */
+.word-list-panel{width:100%;max-width:560px;background:rgba(4,9,20,.65);border-radius:8px;padding:8px 10px;border:1px solid rgba(180,140,50,.15);flex-shrink:0;overflow-y:auto;max-height:22vh}
+.word-list-panel::-webkit-scrollbar{width:3px}.word-list-panel::-webkit-scrollbar-thumb{background:#1e3a6e;border-radius:2px}
+.word-list-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .word-list-title{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.13em;color:#506080;text-transform:uppercase}
 .word-count-badge{font-family:'Cinzel',serif;font-size:10px;font-weight:700;color:#d4a017;padding:1px 8px;background:rgba(180,140,50,.1);border:1px solid rgba(180,140,50,.25);border-radius:100px}
-.word-list-grid{display:flex;flex-wrap:wrap;gap:5px}
+.word-list-grid{display:flex;flex-wrap:wrap;gap:4px}
 .word-chip{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.07em;padding:3px 10px;border-radius:4px;border:1px solid rgba(180,140,50,.18);color:#c0c8d8;background:rgba(255,255,255,.03);cursor:default;transition:all .2s;white-space:nowrap;user-select:none}
 .word-chip.found{cursor:pointer;text-decoration:line-through;text-decoration-thickness:2px;opacity:.82}
-.word-chip.found:hover{opacity:1;transform:scale(1.06);box-shadow:0 0 8px rgba(180,140,50,.3)}
+.word-chip.found:hover,.word-chip.gameend:hover{opacity:1;transform:scale(1.06);box-shadow:0 0 8px rgba(180,140,50,.3)}
 .word-chip.gameend{cursor:pointer}
-.word-chip.gameend:hover{opacity:1;transform:scale(1.06);box-shadow:0 0 8px rgba(180,140,50,.3)}
 
-/* ── Meaning Modal ────────────────────────────────────────── */
+/* ── Chat + Words column ── */
+.chat-col{display:flex;flex-direction:column;overflow:hidden;border-left:1px solid rgba(180,140,50,.14);background:rgba(4,9,20,.97);height:100vh}
+.ph{display:flex;align-items:center;gap:7px;padding:10px 11px;background:rgba(180,140,50,.07);border-bottom:1px solid rgba(180,140,50,.13);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.13em;font-weight:700;color:#d4a017;text-transform:uppercase;flex-shrink:0}
+.tbadge{margin-left:auto;background:rgba(255,255,255,.07);border-radius:100px;padding:2px 9px;font-size:9px}
+.chat-tabs{display:flex;flex-shrink:0;border-bottom:1px solid rgba(180,140,50,.14)}
+.chat-tab{flex:1;font-family:'Cinzel',serif;font-size:9px;font-weight:700;letter-spacing:.08em;padding:7px 4px;text-align:center;color:#506080;cursor:pointer;border:none;border-bottom:2px solid transparent;background:transparent;transition:color .15s,border-color .15s}
+.chat-tab.active{color:#d4a017;border-bottom-color:#b8860b}
+.chat-panel{display:none;flex:1;flex-direction:column;min-height:0;overflow:hidden}
+.chat-panel.active{display:flex}
+.cm{flex:1;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:5px;min-height:0}
+.cm::-webkit-scrollbar{width:3px}.cm::-webkit-scrollbar-thumb{background:#1e3a6e;border-radius:2px}
+.msg{display:flex;flex-direction:column;gap:2px;padding:5px 8px;border-radius:7px;animation:fu .2s ease;max-width:96%}
+@keyframes fu{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.msg.me{background:rgba(120,85,5,.92);align-self:flex-end}
+.msg.ot{background:rgba(8,16,44,.92);align-self:flex-start}
+.msg.sy{background:rgba(6,12,26,.80);align-self:center;text-align:center;border-radius:5px;padding:2px 7px}
+.ma{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.07em;font-weight:700}
+.ma.red{color:#82b1ff}.ma.blue{color:#00c853}.ma.green{color:#ce93d8}.ma.gold{color:#ffab00}.ma.system{color:#506080}
+.mt{font-size:12px;color:#e8d5a0;line-height:1.4;word-break:break-word}
+.msg.sy .mt{font-size:10px;color:#506080;font-style:italic}
+.cir{display:flex;gap:5px;padding:7px 8px;border-top:1px solid rgba(180,140,50,.2);flex-shrink:0;background:rgba(4,8,20,.82)}
+.cir input{flex:1;font-size:12px;padding:6px 9px}
+.sb{background:rgba(180,140,50,.12);border:1px solid #6b3d10;border-radius:6px;color:#d4a017;font-size:13px;width:30px;min-width:30px;height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.sb:hover{background:rgba(180,140,50,.26);color:#ffe680}
+.words-section{border-top:1px solid rgba(180,140,50,.14);padding:8px;flex-shrink:0;overflow-y:auto;max-height:38vh}
+.words-section::-webkit-scrollbar{width:3px}.words-section::-webkit-scrollbar-thumb{background:#1e3a6e;border-radius:2px}
+.stl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.13em;color:#506080;text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:6px}
+.pr{display:flex;align-items:center;gap:6px;padding:3px 5px;border-radius:5px;font-size:10px;background:rgba(255,255,255,.02);margin-bottom:2px}
+.pd{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.pnl{color:#e8d5a0;flex:1;font-size:10px}
+.rid{font-family:'Cinzel',serif;font-size:9px;color:#506080;text-align:center;margin-top:5px;padding-top:5px;border-top:1px solid rgba(180,140,50,.08)}
+.rid span{color:#b8860b;font-weight:700}
+.word-pill{font-family:'Cinzel',serif;font-size:9px;font-weight:700;letter-spacing:.06em;padding:2px 7px;border-radius:100px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#c0c8d8;white-space:nowrap}
+.word-pill.red{background:rgba(41,121,255,.15);border-color:rgba(41,121,255,.35);color:#82b1ff}
+.word-pill.blue{background:rgba(0,200,83,.12);border-color:rgba(0,200,83,.3);color:#69f0ae}
+.word-pill.green{background:rgba(170,0,255,.12);border-color:rgba(170,0,255,.3);color:#ea80fc}
+.word-pill.gold{background:rgba(255,171,0,.12);border-color:rgba(255,171,0,.3);color:#ffd740}
+/* discovery log */
+.gls{border-top:1px solid rgba(180,140,50,.1);padding:5px 8px;display:flex;flex-direction:column;gap:3px;flex-shrink:0;max-height:100px;overflow:hidden}
+.ml{overflow-y:auto;font-size:10px;color:#7080a0;display:flex;flex-direction:column;gap:2px;font-family:'Cinzel',serif}
+.ml::-webkit-scrollbar{width:3px}.ml::-webkit-scrollbar-thumb{background:#1e3a6e;border-radius:2px}
+.le{padding:1px 0}.le.red{color:#82b1ff}.le.blue{color:#00c853}.le.green{color:#ce93d8}.le.gold{color:#ffab00}
+
+/* ── Ad column ── */
+.ad-col{display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;border-left:1px solid rgba(180,140,50,.1);background:rgba(4,8,18,.8);padding:12px 8px;gap:10px}
+.ad-placeholder{width:100%;flex:1;max-height:600px;border:1px dashed rgba(180,140,50,.2);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:rgba(180,140,50,.03)}
+.ad-placeholder span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#2a3a50}
+.ad-placeholder .ad-icon{font-size:28px;opacity:.3}
+
+/* ── Meaning Modal ── */
 .meaning-modal{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:600;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
 .meaning-box{background:rgba(8,14,30,.98);border:2px solid rgba(180,140,50,.55);border-radius:16px;padding:28px 32px;max-width:380px;width:90vw;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8)}
 .meaning-word-title{font-family:'Cinzel',serif;font-size:24px;font-weight:900;letter-spacing:.14em;color:#ffe680;margin-bottom:4px;text-shadow:0 0 14px rgba(255,200,0,.4)}
@@ -130,7 +169,7 @@ input[type=text]:focus{border-color:#b8860b;box-shadow:0 0 10px rgba(180,140,50,
 .meaning-close-btn{background:rgba(180,140,50,.15);border:1px solid rgba(180,140,50,.4);border-radius:7px;color:#d4a017;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.07em;padding:7px 22px;cursor:pointer;transition:all .15s}
 .meaning-close-btn:hover{background:rgba(180,140,50,.3);transform:scale(1.04)}
 
-/* ── Board notification ───────────────────────────────────── */
+/* ── Board notification ── */
 #board-notif{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.85);background:rgba(6,12,26,.96);border:2px solid rgba(180,140,50,.6);border-radius:14px;padding:18px 28px;text-align:center;pointer-events:none;z-index:9999;opacity:0;transition:opacity .35s,transform .35s;min-width:240px;max-width:90vw;backdrop-filter:blur(12px)}
 #board-notif.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
 #board-notif .bn-title{font-family:'Cinzel',serif;font-size:18px;font-weight:700;letter-spacing:.12em;color:#ffe680;margin-bottom:6px;text-shadow:0 0 12px rgba(255,200,0,.5)}
@@ -147,119 +186,127 @@ input[type=text]:focus{border-color:#b8860b;box-shadow:0 0 10px rgba(180,140,50,
 .rvbtn.yes:hover{background:rgba(39,174,96,.35)}
 .rvbtn.no{background:rgba(192,57,43,.18);border-color:#c0392b;color:#e74c3c}
 .rvbtn.no:hover{background:rgba(192,57,43,.35)}
-#uimode-btn{position:fixed;top:12px;right:14px;z-index:9000;width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(180,140,50,.45);background:rgba(10,22,50,.75);backdrop-filter:blur(8px);color:#d4a017;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,.45);transition:background .3s,border-color .3s,transform .2s}
-#uimode-btn:hover{transform:scale(1.12)}
-/* discovery log */
-.gls{border-top:1px solid rgba(180,140,50,.1);padding:6px 10px;display:flex;flex-direction:column;gap:4px;height:125px;flex-shrink:0}
-.ml{overflow-y:auto;font-size:10px;color:#7080a0;display:flex;flex-direction:column;gap:2px;font-family:'Cinzel',serif}
-.ml::-webkit-scrollbar{width:3px}.ml::-webkit-scrollbar-thumb{background:#1e3a6e;border-radius:2px}
-.le{padding:1px 0}.le.red{color:#82b1ff}.le.blue{color:#00c853}.le.green{color:#ce93d8}.le.gold{color:#ffab00}
-
-/* ── Light Mode ─────────────────────────────────────────── */
-body.light{background:#f0ebe0;background-image:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(200,180,130,.35) 0%,transparent 60%);color:#2a1f0a}
-body.light #uimode-btn{background:rgba(255,252,240,.88);border-color:rgba(140,100,20,.45);color:#7a5a00}
-body.light .lcard{background:rgba(255,252,240,.97);border-color:rgba(140,100,20,.28);box-shadow:0 4px 40px rgba(100,70,10,.15)}
-body.light .gsub{color:#7a6a50}
-body.light input[type=text]{background:#fffdf5;border-color:#c8b070;color:#2a1f0a}
-body.light input[type=text]::placeholder{color:#a09070}
-body.light .lbl{color:#907050}
-body.light .cc:hover{background:rgba(0,0,0,.04)}
-body.light .cc span{color:#907050}
-body.light .tbox{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.09)}
-body.light .tm{color:#907050}
-body.light #stat{color:#7a5a00}
-body.light .sp{background:rgba(255,252,242,.97);border-color:rgba(140,100,20,.18)}
-body.light .ph{background:rgba(180,140,50,.08);border-color:rgba(140,100,20,.18);color:#7a5a00}
-body.light .msg.me{background:rgba(180,140,20,.18)}
-body.light .msg.ot{background:rgba(200,190,170,.35)}
-body.light .msg.sy{background:rgba(200,190,160,.25)}
-body.light .mt{color:#2a1f0a}
-body.light .msg.sy .mt{color:#907050}
-body.light .cir{background:rgba(240,234,215,.80);border-color:rgba(180,140,50,.22)}
-body.light #mob-drawer{background:rgba(245,240,225,.95);border-top-color:rgba(180,140,50,.45)}
-body.light .mob-tab{color:#5a4a20}
-body.light .mob-tab.active{color:#8a5a00;border-bottom-color:#8a5a00}
-body.light .mob-handle{color:#3a2a10}
-body.light .sb{background:rgba(180,140,50,.12);border-color:#c8a060;color:#7a5a00}
-body.light .pls{border-color:rgba(140,100,20,.14)}
-body.light .stl{color:#a09060}
-body.light .pr{background:rgba(0,0,0,.03)}
-body.light .pnl{color:#2a1f0a}
-body.light .ps{color:#907050}
-body.light .rid span{color:#7a5000}
-body.light .gls{border-color:rgba(140,100,20,.14)}
-body.light .cc2{background:rgba(240,234,216,.60)}
-body.light #td{color:#7a5000;background:rgba(180,140,50,.08);border-color:rgba(180,140,50,.22)}
-body.light .rotbtn{background:rgba(180,140,50,.1);border-color:rgba(140,100,20,.4);color:#7a5000}
-body.light .rotbtn:hover{background:rgba(180,140,50,.24);color:#3a2000}
-body.light .actbtn{background:rgba(200,50,30,.07);border-color:rgba(200,50,30,.32);color:#c03020}
-body.light .drawbtn{background:rgba(30,110,220,.07);border-color:rgba(30,110,220,.3);color:#1a6ab0}
-body.light .team-bar-block.us{background:rgba(224,80,80,.04);border-color:rgba(200,60,60,.22)}
-body.light .team-bar-block.them{background:rgba(64,176,96,.04);border-color:rgba(40,140,70,.22)}
-body.light .prog-name,.body.light .opp-name{color:#3a2f1a}
-body.light .sel-info{color:#907050}
-body.light .toast{background:rgba(255,252,238,.97);border-color:rgba(140,100,20,.4);color:#2a1f0a}
-body.light #board-notif{background:rgba(255,252,236,.97)}
-body.light .vote-box{background:rgba(255,252,238,.98);border-color:rgba(140,100,20,.3)}
-body.light .vote-box p{color:#706050}
-body.light .word-list-panel{background:rgba(240,234,215,.75);border-color:rgba(140,100,20,.22)}
-body.light .word-chip{color:#3a2f1a;border-color:rgba(140,100,20,.2);background:rgba(0,0,0,.04)}
-body.light .meaning-box{background:rgba(255,252,238,.98);border-color:rgba(140,100,20,.55)}
-body.light .meaning-def{color:#3a4050}
-body.light .meaning-word-title{color:#7a4000;text-shadow:none}
-body.light .meaning-cat-label{color:#906050;border-color:rgba(140,100,20,.3)}
-body.light .meaning-close-btn{background:rgba(180,140,50,.1);color:#7a5000}
 
 /* ── Mobile ─────────────────────────────────────────────── */
 @media(max-width:640px){
   html,body{overflow:hidden;height:100dvh;touch-action:manipulation}
   #gs{overflow:hidden!important}
   .gl{display:block!important;position:relative;width:100vw;height:100dvh}
-  .sp{display:none!important}
-  .cc2{position:absolute!important;top:0;left:0;right:0;bottom:0;padding:2px 2px!important;overflow-y:auto!important;gap:2px!important;align-items:center!important}
-  .ctrls{gap:3px!important;padding:1px 0!important}
-  #td{font-size:9px!important;padding:2px 8px!important}
-  .rotbtn,.actbtn,.drawbtn{font-size:9px!important;padding:3px 7px!important}
-  .team-prog-wrap{gap:3px!important}
-  .team-bar-block{padding:4px 7px!important;gap:3px!important}
-  .team-label{font-size:9px!important}
-  .team-pct-big{font-size:10px!important}
-  .team-main-track{height:7px!important}
-  .word-list-panel{padding:6px 8px!important}
-  .word-chip{font-size:9px!important;padding:2px 7px!important}
-  #mob-drawer{
-    position:fixed;bottom:0;left:0;right:0;
-    background:rgba(6,14,30,.92);
-    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-    border-top:1px solid rgba(180,140,50,.40);
-    border-radius:14px 14px 0 0;
-    z-index:100;max-height:65dvh;
-    display:flex;flex-direction:column;
-    transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1)
+  .chat-col{display:none!important}
+  .ad-col{display:none!important}
+
+  .game-col{
+    position:absolute!important;top:0;left:0;right:0;bottom:0;
+    overflow:hidden!important;padding:0!important;gap:0!important;
+    display:grid!important;
+    grid-template-rows:auto auto 1fr auto auto 18dvh!important;
+    background:#060c1a!important;height:100dvh!important;
   }
-  #mob-drawer.open{transform:translateY(0)}
-  .mob-handle{text-align:center;padding:7px 0 5px;font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:.10em;color:#e8f0f8;cursor:pointer;flex-shrink:0;line-height:1;background:transparent;text-shadow:0 1px 6px rgba(0,0,0,.95)}
-  .mob-tabs{display:flex;flex-shrink:0;border-bottom:1px solid rgba(180,140,50,.25);background:rgba(6,14,30,.50)}
-  .mob-tab{flex:1;font-family:'Cinzel',serif;font-size:12px;font-weight:700;letter-spacing:.08em;padding:9px 4px 7px;text-align:center;color:#c8d8e8;cursor:pointer;border:none;background:transparent;transition:color .15s}
-  .mob-tab.active{color:#ffe080;border-bottom:2px solid #ffe080;background:transparent}
-  .mob-panel{display:none;flex:1;overflow-y:auto;flex-direction:column;min-height:0;background:transparent}
-  .mob-panel.active{display:flex}
-  #mob-openbtn{position:fixed;bottom:10px;right:10px;width:40px;height:40px;border-radius:50%;background:rgba(180,140,50,.22);border:1px solid rgba(180,140,50,.45);color:#d4a017;font-size:17px;cursor:pointer;z-index:99;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.55)}
+  .profile-row{padding:5px 8px 3px!important;background:rgba(6,10,22,.95)!important;border-bottom:1px solid rgba(180,140,50,.12)!important;flex-shrink:0!important}
+  .profile-pic{width:26px!important;height:26px!important;font-size:11px!important}
+  .profile-name{font-size:7px!important;max-width:40px!important}
+  .pcard{gap:1px!important}
+  #td{font-size:16px!important;letter-spacing:.08em!important}
+  .ctrls{gap:2px!important}
+  .rotbtn,.actbtn,.drawbtn{font-size:8px!important;padding:3px 6px!important}
+  .rid{font-size:7px!important}
+
+  #mob-hbars{display:flex!important;align-items:center;gap:6px;padding:4px 8px!important;background:rgba(4,8,18,.9)!important;border-bottom:1px solid rgba(180,140,50,.1)!important;flex-shrink:0!important}
+  .mob-hbar-team{display:flex;align-items:center;gap:4px;flex:1}
+  .mob-hbar-team.opp{flex-direction:row-reverse}
+  .mob-hbar-pics{display:flex;gap:2px}
+  .mob-hbar-pic{width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(255,255,255,.15);background:rgba(20,30,60,.7);display:flex;align-items:center;justify-content:center;font-size:8px}
+  .mob-hbar-pic.my{border-color:#3b82f6}
+  .mob-hbar-pic.opp{border-color:#f97316}
+  .mob-hbar-track{flex:1;height:7px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden;position:relative}
+  .mob-hbar-fill{position:absolute;top:0;bottom:0;border-radius:4px;transition:width .6s ease}
+  .mob-hbar-fill.my{left:0;background:linear-gradient(90deg,#1d4ed8,#3b82f6)}
+  .mob-hbar-fill.opp{right:0;background:linear-gradient(90deg,#f97316,#c2410c)}
+  .mob-hbar-count{font-family:'Cinzel',serif;font-size:9px;font-weight:900;min-width:22px;text-align:center}
+  .mob-hbar-count.my{color:#3b82f6}
+  .mob-hbar-count.opp{color:#f97316}
+  .mob-hbar-divider{font-family:'Cinzel',serif;font-size:10px;color:#3a4a60;font-weight:700}
+
+  .board-and-bars{display:flex!important;align-items:center!important;justify-content:center!important;padding:3px!important;overflow:hidden!important;min-height:0!important}
+  .board-and-bars > div:not(.board-outer){display:none!important}
+
+  .game-bottom{padding:4px 8px!important;gap:3px!important;background:rgba(4,8,18,.9)!important;border-top:1px solid rgba(180,140,50,.12)!important;flex-shrink:0!important}
+  .sel-info{font-size:9px!important;min-height:10px!important}
+
+  #mob-words-found{padding:5px 10px 3px!important;background:rgba(4,8,18,.85)!important;border-top:1px solid rgba(180,140,50,.1)!important;overflow-y:auto!important;min-height:0!important;display:block!important}
+  #mob-words-found::-webkit-scrollbar{width:2px}
+  #mob-words-found::-webkit-scrollbar-thumb{background:#1e3a6e;border-radius:1px}
+  .word-list-panel{display:none!important}
+
+  #mob-ad{background:rgba(4,8,18,.95)!important;border-top:1px solid rgba(180,140,50,.15)!important;display:flex!important;align-items:center;justify-content:center;flex-direction:column;gap:4px;color:#1e2e44}
+  #mob-ad span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#1e2e44}
+
+  #mob-chat-btn{width:28px;height:28px;border-radius:7px;background:rgba(180,140,50,.15);border:1px solid rgba(180,140,50,.35);color:#d4a017;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+  #mob-chat-btn:active{background:rgba(180,140,50,.3)}
+
+  #mob-chat-overlay{position:fixed;bottom:18dvh;left:0;right:0;max-height:50dvh;height:50dvh;background:rgba(6,12,28,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(180,140,50,.3);z-index:250;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);pointer-events:none}
+  #mob-chat-overlay.open{transform:translateY(0);pointer-events:all}
+  .mob-chat-handle{text-align:center;padding:7px 0 4px;cursor:pointer;flex-shrink:0;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;color:#d4a017}
+  .mob-chat-handle::before{content:'';display:block;margin:0 auto 5px;width:26px;height:3px;border-radius:2px;background:rgba(180,140,50,.4)}
+  #mob-chat-overlay .mob-tabs{display:flex;flex-shrink:0;border-bottom:1px solid rgba(180,140,50,.18);background:transparent}
+  #mob-chat-overlay .mob-tab{flex:1;font-family:'Cinzel',serif;font-size:10px;font-weight:700;padding:7px 4px 5px;text-align:center;color:#8090a8;cursor:pointer;border:none;border-bottom:2px solid transparent;background:transparent;transition:color .15s,border-color .15s}
+  #mob-chat-overlay .mob-tab.active{color:#ffe080;border-bottom-color:#d4a017}
+  #mob-chat-overlay .mob-panel{display:none;flex:1;flex-direction:column;min-height:0;background:transparent;overflow:hidden}
+  #mob-chat-overlay .mob-panel.active{display:flex}
+  #mob-chat-overlay .cir{background:rgba(4,8,20,.75)}
 }
-@media(min-width:641px){#mob-drawer{display:none!important}#mob-openbtn{display:none!important}}
-@media(max-width:640px){#mob-openbtn{display:flex}}
+@media(min-width:641px){
+  #mob-chat-overlay{display:none!important}
+  #mob-hbars{display:none!important}
+  #mob-words-found{display:none!important}
+  #mob-ad{display:none!important}
+  #mob-chat-btn{display:none!important}
+  #mob-drawer{display:none!important}
+  #mob-openbtn{display:none!important}
+}
+@media(max-width:640px){
+  #mob-hbars{display:flex!important}
+  #mob-words-found{display:block!important}
+  #mob-ad{display:flex!important}
+  #mob-chat-btn{display:flex!important}
+}
 </style>
 </head>
 <body>
 <div id="app">
 
-<!-- ── Login ───────────────────────────────────────── -->
+<!-- ── Login ──────────────────────────────────────────── -->
 <div id="ls" class="screen active">
   <div class="lw">
     <div>
-      <div class="crown">🔍</div>
-      <h1 class="gtitle">STRATEGY HUB</h1>
-      <p class="gsub">Team Word Hunt &middot; Hidden Words &middot; One Grid</p>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg"
+          style="filter:drop-shadow(0 0 14px rgba(212,160,23,.55));animation:fl 3s ease-in-out infinite">
+          <circle cx="36" cy="36" r="33" stroke="url(#rg)" stroke-width="2.5" fill="none"/>
+          <circle cx="36" cy="36" r="22" stroke="url(#rg)" stroke-width="1.5" fill="none" opacity=".5"/>
+          <polygon points="36,18 50,26 50,46 36,54 22,46 22,26" fill="url(#cg)" opacity=".92"/>
+          <text x="36" y="42" font-family="serif" font-size="18" font-weight="900" fill="#fff" text-anchor="middle">W</text>
+          <circle cx="36" cy="4"  r="2.5" fill="url(#rg)"/>
+          <circle cx="63" cy="19" r="2"   fill="url(#rg)" opacity=".7"/>
+          <circle cx="63" cy="53" r="2"   fill="url(#rg)" opacity=".7"/>
+          <circle cx="36" cy="68" r="2.5" fill="url(#rg)"/>
+          <circle cx="9"  cy="53" r="2"   fill="url(#rg)" opacity=".7"/>
+          <circle cx="9"  cy="19" r="2"   fill="url(#rg)" opacity=".7"/>
+          <defs>
+            <linearGradient id="rg" x1="0" y1="0" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#b8860b"/>
+              <stop offset="50%" stop-color="#ffe680"/>
+              <stop offset="100%" stop-color="#b8860b"/>
+            </linearGradient>
+            <linearGradient id="cg" x1="22" y1="18" x2="50" y2="54" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#f0c040"/>
+              <stop offset="100%" stop-color="#b8860b"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <h1 class="gtitle">WORD HUNT</h1>
+      </div>
+      <p class="gsub">Strategy Hub &middot; Team Battle &middot; Hidden Words</p>
     </div>
     <div class="lcard">
       <input type="text" id="ni" placeholder="Your name…" maxlength="20"/>
@@ -287,74 +334,185 @@ body.light .meaning-close-btn{background:rgba(180,140,50,.1);color:#7a5000}
   </div>
 </div>
 
-<!-- ── Game ──────────────────────────────────────────── -->
+<!-- ── Game ─────────────────────────────────────────────── -->
 <div id="gs" class="screen">
   <div class="gl">
-    <!-- Left: team chat -->
-    <div class="sp">
-      <div class="ph">🛡<span>TEAM CHAT</span><span id="tld" class="tbadge">—</span></div>
-      <div id="tcm" class="cm"></div>
-      <div class="cir">
-        <input type="text" id="tci" placeholder="Message ally…" maxlength="200"/>
-        <button id="tsb" class="sb">➤</button>
-      </div>
-      <div class="pls">
-        <div class="stl">Players</div>
-        <div id="pl"></div>
-        <div class="rid">Room: <span id="rs">—</span></div>
-      </div>
-    </div>
 
-    <!-- Centre: board + word list -->
-    <div class="cc2" id="center-col">
-      <div class="ctrls">
-        <div id="td">Waiting…</div>
-        <button class="rotbtn" id="rotbtn">⟳ Rotate</button>
-        <button class="rotbtn" id="themebtn">🎨 Theme</button>
-        <button class="actbtn" id="resbtn">⚑ Resign</button>
-        <button class="drawbtn" id="drawbtn">🤝 Draw</button>
-      </div>
-      <div class="team-prog-wrap" id="prog-wrap"></div>
-      <div class="board-outer">
-        <canvas id="gc" width="400" height="400"></canvas>
-        <div id="board-notif"><div class="bn-title" id="bn-title"></div><div class="bn-sub" id="bn-sub"></div></div>
-      </div>
-      <div class="sel-info" id="sel-info">Drag across letters to select a hidden word</div>
+    <!-- ── GAME COLUMN (56%) ── -->
+    <div class="game-col" id="game-col">
 
-      <!-- Word list panel -->
-      <div class="word-list-panel" id="word-list-panel">
-        <div class="word-list-header">
-          <span class="word-list-title">🔍 Find These Words</span>
-          <span class="word-count-badge" id="word-count">0/0</span>
+      <!-- Profile row: Team A left | timer+controls center | Team B right -->
+      <div class="profile-row">
+        <div class="profile-slot">
+          <div class="pcard">
+            <div class="profile-pic" id="prof-red">👤</div>
+            <span class="profile-name" id="pname-red">Cobalt</span>
+          </div>
+          <div class="pcard">
+            <div class="profile-pic" id="prof-gold">👤</div>
+            <span class="profile-name" id="pname-gold">Amber</span>
+          </div>
         </div>
-        <div class="word-list-grid" id="word-list-grid"></div>
+        <div class="profile-center">
+          <div id="td">–:––</div>
+          <div class="ctrls">
+            <button class="rotbtn" id="rotbtn">⟳</button>
+            <button class="rotbtn" id="themebtn">🎨</button>
+            <button class="actbtn" id="resbtn">⚑</button>
+            <button class="drawbtn" id="drawbtn">🤝</button>
+          </div>
+          <div class="rid" style="border:none;margin:0;padding:0">Room: <span id="rs">—</span></div>
+        </div>
+        <div class="profile-slot right">
+          <div class="pcard">
+            <div class="profile-pic" id="prof-blue">👤</div>
+            <span class="profile-name" id="pname-blue">Emerald</span>
+          </div>
+          <div class="pcard">
+            <div class="profile-pic" id="prof-green">👤</div>
+            <span class="profile-name" id="pname-green">Violet</span>
+          </div>
+        </div>
       </div>
+
+      <!-- Mobile: horizontal word bars -->
+      <div id="mob-hbars">
+        <div class="mob-hbar-team" id="mob-hbar-my">
+          <div class="mob-hbar-pics" id="mob-hbar-my-pics"></div>
+          <div class="mob-hbar-track"><div class="mob-hbar-fill my" id="mob-hbar-my-fill" style="width:0%"></div></div>
+          <div class="mob-hbar-count my" id="mob-hbar-my-count">0/0</div>
+        </div>
+        <div class="mob-hbar-divider">VS</div>
+        <div class="mob-hbar-team opp" id="mob-hbar-opp">
+          <div class="mob-hbar-pics" id="mob-hbar-opp-pics"></div>
+          <div class="mob-hbar-track"><div class="mob-hbar-fill opp" id="mob-hbar-opp-fill" style="width:0%"></div></div>
+          <div class="mob-hbar-count opp" id="mob-hbar-opp-count">0/0</div>
+        </div>
+      </div>
+
+      <!-- Board + vertical bars -->
+      <div class="board-and-bars">
+
+        <!-- Left vertical bars (Team A / my side when myTeam=A) -->
+        <div style="display:flex;align-items:stretch;gap:5px;flex-shrink:0;padding:4px 0">
+          <div class="vbar-group" id="vbar-left"></div>
+          <div class="vbar-wrap" style="border-left:1px solid rgba(59,130,246,.2);padding-left:5px">
+            <div style="font-family:'Cinzel',serif;font-size:7px;color:#3b82f6;text-align:center;font-weight:700">ALL</div>
+            <div class="vbar-count my" id="vbar-total-left-count">0/0</div>
+            <div class="vbar-track" style="width:12px"><div class="vbar-fill my" id="vbar-total-left" style="height:0%"></div></div>
+            <div class="vbar-name my">TEAM</div>
+          </div>
+        </div>
+
+        <!-- Grid canvas -->
+        <div class="board-outer">
+          <canvas id="gc" width="400" height="400"></canvas>
+          <div id="board-notif"><div class="bn-title" id="bn-title"></div><div class="bn-sub" id="bn-sub"></div></div>
+        </div>
+
+        <!-- Right vertical bars -->
+        <div style="display:flex;align-items:stretch;gap:5px;flex-shrink:0;padding:4px 0">
+          <div class="vbar-wrap" style="border-right:1px solid rgba(249,115,22,.2);padding-right:5px">
+            <div style="font-family:'Cinzel',serif;font-size:7px;color:#f97316;text-align:center;font-weight:700">ALL</div>
+            <div class="vbar-count opp" id="vbar-total-right-count">0/0</div>
+            <div class="vbar-track" style="width:12px"><div class="vbar-fill opp" id="vbar-total-right" style="height:0%"></div></div>
+            <div class="vbar-name opp">TEAM</div>
+          </div>
+          <div class="vbar-group" id="vbar-right"></div>
+        </div>
+
+      </div>
+
+      <!-- Game bottom: sel-info + word list -->
+      <div class="game-bottom">
+        <div class="sel-info" id="sel-info">Drag across letters to select a hidden word</div>
+        <div class="word-list-panel" id="word-list-panel">
+          <div class="word-list-header">
+            <span class="word-list-title">🔍 Find These Words</span>
+            <span class="word-count-badge" id="word-count">0/0</span>
+          </div>
+          <div class="word-list-grid" id="word-list-grid"></div>
+        </div>
+      </div>
+
+      <!-- Mobile row 5: words found -->
+      <div id="mob-words-found">
+        <div class="stl" style="display:flex;align-items:center;gap:5px;margin-bottom:3px">
+          Find Words
+          <span id="mob-wf-count" style="background:rgba(180,140,50,.18);border-radius:100px;padding:1px 6px;color:#d4a017;font-size:9px">0/0</span>
+          <span style="flex:1"></span>
+          <button id="mob-chat-btn">💬</button>
+        </div>
+        <div id="mob-wf-list" style="display:flex;flex-wrap:wrap;gap:3px"></div>
+      </div>
+
+      <!-- Mobile row 6: ad -->
+      <div id="mob-ad">
+        <div style="font-size:20px;opacity:.2">📢</div>
+        <span>Advertisement</span>
+      </div>
+
     </div>
 
-    <!-- Right: public chat + discovery log -->
-    <div class="sp rp">
-      <div class="ph">📢<span>PUBLIC CHAT</span></div>
-      <div id="pcm" class="cm"></div>
-      <div class="cir">
-        <input type="text" id="pci" placeholder="Global message…" maxlength="200"/>
-        <button id="psb" class="sb">➤</button>
+    <!-- ── CHAT + WORDS COLUMN (24%) ── -->
+    <div class="chat-col">
+      <div class="ph">💬 <span>CHAT</span> <span id="tld" class="tbadge">—</span></div>
+      <div class="chat-tabs">
+        <button class="chat-tab active" data-panel="tchat">🛡 Team</button>
+        <button class="chat-tab" data-panel="pchat">📢 Public</button>
       </div>
+      <div class="chat-panel active" id="chat-tchat">
+        <div id="tcm" class="cm"></div>
+        <div class="cir">
+          <input type="text" id="tci" placeholder="Team…" maxlength="200"/>
+          <button id="tsb" class="sb">➤</button>
+        </div>
+      </div>
+      <div class="chat-panel" id="chat-pchat">
+        <div id="pcm" class="cm"></div>
+        <div class="cir">
+          <input type="text" id="pci" placeholder="Global…" maxlength="200"/>
+          <button id="psb" class="sb">➤</button>
+        </div>
+      </div>
+
+      <!-- Discovery log -->
       <div class="gls">
         <div class="stl">Discovery Log</div>
         <div id="ml" class="ml"></div>
       </div>
+
+      <!-- Words found section -->
+      <div class="words-section">
+        <div class="stl" style="display:flex;align-items:center;gap:6px">
+          Found Words
+          <span id="my-words-count" style="background:rgba(180,140,50,.18);border-radius:100px;padding:1px 6px;color:#d4a017;font-size:9px">0</span>
+        </div>
+        <div id="my-words-list" style="display:flex;flex-wrap:wrap;gap:3px;padding-top:4px"></div>
+        <div id="pl" style="display:none"></div>
+        <div class="rid" style="margin-top:6px">Room: <span id="rs2">—</span></div>
+      </div>
+
     </div>
+
+    <!-- ── AD COLUMN (20%) ── -->
+    <div class="ad-col">
+      <div class="ad-placeholder">
+        <div class="ad-icon">📢</div>
+        <span>Advertisement</span>
+      </div>
+    </div>
+
   </div>
 </div>
 </div>
 
-<!-- Mobile drawer -->
-<div id="mob-drawer" style="display:none">
-  <div class="mob-handle" id="mob-handle">▲ CHAT &amp; PLAYERS</div>
+<!-- Mobile: floating chat overlay -->
+<div id="mob-chat-overlay" style="display:none">
+  <div class="mob-chat-handle" id="mob-chat-handle">💬 CHAT</div>
   <div class="mob-tabs">
     <button class="mob-tab active" data-tab="tchat">🛡 Team</button>
     <button class="mob-tab" data-tab="pchat">📢 Public</button>
-    <button class="mob-tab" data-tab="players">👤 Players</button>
   </div>
   <div class="mob-panel active" id="mob-tchat">
     <div id="mob-tcm" class="cm"></div>
@@ -370,11 +528,15 @@ body.light .meaning-close-btn{background:rgba(180,140,50,.1);color:#7a5000}
       <button id="mob-psb" class="sb">➤</button>
     </div>
   </div>
-  <div class="mob-panel" id="mob-players" style="padding:8px">
-    <div id="mob-pl"></div>
-  </div>
 </div>
-<button id="mob-openbtn" style="display:none">💬</button>
+
+<!-- Hidden compat divs -->
+<div id="mob-words-list" style="display:none"></div>
+<div id="mob-pl" style="display:none"></div>
+<div id="mob-drawer" style="display:none">
+  <div id="mob-handle" style="display:none"></div>
+</div>
+<button id="mob-openbtn" style="display:none"></button>
 
 <!-- Draw overlay -->
 <div id="vote-overlay" class="vote-overlay" style="display:none">
@@ -399,7 +561,6 @@ body.light .meaning-close-btn{background:rgba(180,140,50,.1);color:#7a5000}
 </div>
 
 <div id="toast" class="toast"></div>
-<button id="uimode-btn" title="Toggle Light / Dark">🌙</button>
 
 <!-- ═══════════════════════════════════════════════════════ -->
 <script type="module">
@@ -435,7 +596,6 @@ const THEMES=[
   {name:'Parchment',bg:'#f0e6cc',cEven:'#fdf4e4',cOdd:'#ece0c8',line:'rgba(105,75,40,.22)',bLine:'#7a5030',gText:'#32200a',selBg:'rgba(200,130,10,.45)',dark:false},
 ];
 
-// ── Word Bank ─────────────────────────────────────────────
 const WORD_BANK=[
   // Capitals
   {word:'ROME',meaning:'Capital of Italy; built on seven hills along the Tiber River, once the heart of an empire spanning from Britain to Mesopotamia.',category:'Capital City'},
@@ -1256,6 +1416,8 @@ const WORD_BANK=[
   {word:'VISHNU',meaning:'The preserver and protector of the universe in Hindu mythology; he descends to Earth in ten avatars including Rama and Krishna to restore cosmic order.',category:'Mythology'},
 ];
 
+
+
 // ── Seeded RNG ─────────────────────────────────────────────
 function hashStr(s){let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return h>>>0;}
 function mulberry32(seed){return()=>{seed|=0;seed=(seed+0x6D2B79F5)|0;let t=Math.imul(seed^seed>>>15,1|seed);t=(t+Math.imul(t^t>>>7,61|t))^t;return((t^t>>>14)>>>0)/4294967296;};}
@@ -1518,7 +1680,7 @@ function applySnap(snap){
   updateProgress();
   renderWordList();
   renderPlayers(d.players||{});
-  renderFoundLog(d.foundLog?.[_myTeam]||{});
+  renderWordLog2(_myTeam==='A'?_foundA:_foundB);renderFoundLog(d.foundLog?.[_myTeam]||{});
   handleDrawUI(d.drawVotes||{});
 
   if(d.winner){
@@ -1554,63 +1716,68 @@ function checkWin(){
 
 // ── Progress Bars ──────────────────────────────────────────
 function updateProgress(){
-  const wrap=document.getElementById('prog-wrap');
-  if(!wrap||!_words.length)return;
+  if(!_words.length)return;
   const total=_words.length;
   const myFound=_myTeam==='A'?_foundA:_foundB;
   const oppFound=_myTeam==='A'?_foundB:_foundA;
-
-  const myScore={};
-  COLORS.filter(c=>TEAMS[c]===_myTeam).forEach(c=>myScore[c]=0);
-  Object.values(myFound).forEach(info=>{if(myScore[info.color]!==undefined)myScore[info.color]++;});
-  const myTotal=Object.values(myScore).reduce((a,b)=>a+b,0);
-  const myPct=Math.round(myTotal/total*100);
-  const oppTotal=Object.keys(oppFound).length;
-  const oppPct=Math.round(oppTotal/total*100);
-
   const myColors=COLORS.filter(c=>TEAMS[c]===_myTeam);
   const oppColors=COLORS.filter(c=>TEAMS[c]===_oppTeam);
+  const myScore={};
+  myColors.forEach(c=>myScore[c]=0);
+  Object.values(myFound).forEach(info=>{if(myScore[info.color]!==undefined)myScore[info.color]++;});
+  const myTotal=Object.values(myScore).reduce((a,b)=>a+b,0);
+  const oppTotal=Object.keys(oppFound).length;
+  const maxW=Math.max(myTotal,oppTotal,1);
 
-  const myHTML=myColors.map(c=>{
-    const pm=PM[c];const s=myScore[c]||0;const el=_elim[c];
-    const pct2=Math.round(s/total*100);
-    return`<div class="player-row">
-      <div class="prog-dot" style="background:${pm.dot}"></div>
-      <span class="prog-name${el?' elim':''}">${pm.label}</span>
-      <div class="prog-track-sm"><div class="prog-fill-sm" style="width:${pct2}%;background:${pm.prog}"></div></div>
-      <span class="prog-pct-sm">${s}/${total}</span>
-    </div>`;
-  }).join('');
+  // Build per-player vbar groups
+  function buildVbars(containerId,colors,isMy){
+    const c=document.getElementById(containerId);if(!c)return;
+    c.innerHTML=colors.map(col=>{
+      const pm=PM[col];
+      const cnt=isMy?(myScore[col]||0):0;
+      const pct=Math.min(100,Math.round(cnt/total*100));
+      const cls=isMy?'my':'opp';
+      const nm=_cachedPlayers[col]||pm.label;
+      const el=_elim[col];
+      return`<div class="vbar-wrap">
+        <div class="vbar-pic ${cls}" id="vbar-pic-${col}" title="${nm}">👤</div>
+        <div class="vbar-count ${cls}" id="vbar-count-${col}">${cnt}</div>
+        <div class="vbar-track">
+          <div class="vbar-fill ${cls}${el?' elim-bar':''}" id="vbar-fill-${col}" style="height:${pct}%"></div>
+        </div>
+        <div class="vbar-name ${cls}" id="vbar-name-${col}">${nm.slice(0,6)}</div>
+      </div>`;
+    }).join('');
+    // team total bar
+    const tot=isMy?myTotal:oppTotal;
+    const totPct=Math.min(100,Math.round(tot/total*100));
+    const cls=isMy?'my':'opp';
+    const totalBarId=containerId==='vbar-left'?'vbar-total-left':'vbar-total-right';
+    const totalCntId=containerId==='vbar-left'?'vbar-total-left-count':'vbar-total-right-count';
+    const tb=document.getElementById(totalBarId);
+    const tc=document.getElementById(totalCntId);
+    if(tb){tb.style.height=totPct+'%';tb.className='vbar-fill '+cls;}
+    if(tc){tc.textContent=`${tot}/${total}`;tc.className='vbar-count '+cls;}
+  }
 
-  const oppHTML=oppColors.map(c=>{
-    const pm=PM[c];const el=_elim[c];
-    return`<div class="opp-player">
-      <div class="prog-dot" style="background:${pm.dot}"></div>
-      <span class="opp-name${el?' elim':''}">${pm.label}</span>
-      <div style="flex:1"></div>
-      <span style="font-size:9px;color:#506080">???</span>
-    </div>`;
-  }).join('');
+  const myOnLeft=_myTeam==='A';
+  buildVbars(myOnLeft?'vbar-left':'vbar-right',myColors,true);
+  buildVbars(myOnLeft?'vbar-right':'vbar-left',oppColors,false);
 
-  wrap.innerHTML=`
-    <div class="team-bar-block us">
-      <div class="team-bar-header">
-        <span class="team-label">⚔ OUR TEAM</span>
-        <span class="team-tag">Team ${_myTeam}</span>
-        <span class="team-pct-big">${myTotal}/${total}</span>
-      </div>
-      <div class="team-main-track"><div class="team-main-fill" style="width:${myPct}%"></div></div>
-      <div class="player-rows">${myHTML}</div>
-    </div>
-    <div class="team-bar-block them">
-      <div class="team-bar-header">
-        <span class="team-label" style="color:#40b060">🔒 ENEMY TEAM</span>
-        <span class="team-tag">Team ${_oppTeam}</span>
-        <span class="team-pct-big" style="color:#40b060">${oppTotal}/${total}</span>
-      </div>
-      <div class="team-main-track"><div class="team-main-fill" style="width:${oppPct}%;background:linear-gradient(90deg,#208040,#40b060)"></div></div>
-      <div class="opp-mystery">${oppHTML}</div>
-    </div>`;
+  // Mobile horizontal bars
+  const mhMyFill=document.getElementById('mob-hbar-my-fill');
+  const mhOppFill=document.getElementById('mob-hbar-opp-fill');
+  const mhMyCount=document.getElementById('mob-hbar-my-count');
+  const mhOppCount=document.getElementById('mob-hbar-opp-count');
+  if(mhMyFill)mhMyFill.style.width=Math.round(myTotal/total*100)+'%';
+  if(mhOppFill)mhOppFill.style.width=Math.round(oppTotal/total*100)+'%';
+  if(mhMyCount)mhMyCount.textContent=`${myTotal}/${total}`;
+  if(mhOppCount)mhOppCount.textContent=`${oppTotal}/${total}`;
+
+  const myPicsEl=document.getElementById('mob-hbar-my-pics');
+  const oppPicsEl=document.getElementById('mob-hbar-opp-pics');
+  if(myPicsEl)myPicsEl.innerHTML=myColors.map(c=>`<div class="mob-hbar-pic my" id="mob-hpic-${c}">👤</div>`).join('');
+  if(oppPicsEl)oppPicsEl.innerHTML=oppColors.map(c=>`<div class="mob-hbar-pic opp" id="mob-hpic-${c}">👤</div>`).join('');
 }
 
 // ── Word List ──────────────────────────────────────────────
@@ -1650,7 +1817,7 @@ function showMeaning(idx){
 }
 
 // ── Discovery Log ──────────────────────────────────────────
-function renderFoundLog(log){
+function renderWordLog2(_myTeam==='A'?_foundA:_foundB);renderFoundLog(log){
   const ml=document.getElementById('ml');if(!ml)return;
   ml.innerHTML=Object.entries(log).sort(([a],[b])=>a<b?1:-1).slice(0,50).map(([,e])=>
     `<div class="le ${e.color}">${PM[e.color]?.label||'?'} found ${e.word}</div>`
@@ -1658,18 +1825,33 @@ function renderFoundLog(log){
 }
 
 // ── Players List ───────────────────────────────────────────
+let _cachedPlayers={red:'Cobalt',blue:'Emerald',green:'Violet',gold:'Amber'};
 function renderPlayers(players){
-  const html=COLORS.map(c=>{
-    const pm=PM[c];
+  COLORS.forEach(c=>{
     const p=Object.values(players).find(x=>x.color===c);
-    const el=_elim[c];
-    const team=TEAMS[c];
-    const badge=`<span style="font-size:9px;padding:1px 5px;border-radius:3px;background:${team==='A'?'rgba(224,80,80,.15)':'rgba(64,176,96,.15)'};color:${team==='A'?'#e05050':'#40b060'}">${team}</span>`;
-    const status=el?'<span style="color:#e74c3c;font-size:9px">RESIGNED</span>':'';
+    _cachedPlayers[c]=p?p.name:PM[c].label;
+  });
+  COLORS.forEach(c=>{
+    const isMy=TEAMS[c]===_myTeam;
+    const cls=isMy?'my':'opp';
+    const nm=_cachedPlayers[c];
+    const picEl=document.getElementById('prof-'+c);
+    const nameEl=document.getElementById('pname-'+c);
+    if(picEl)picEl.className='profile-pic '+cls;
+    if(nameEl){nameEl.textContent=nm;nameEl.className='profile-name '+cls;}
+    const vn=document.getElementById('vbar-name-'+c);
+    const vp=document.getElementById('vbar-pic-'+c);
+    if(vn){vn.textContent=nm.slice(0,6);vn.className='vbar-name '+cls;}
+    if(vp){vp.className='vbar-pic '+cls;vp.title=nm;}
+  });
+  const html=COLORS.map(c=>{
+    const pm=PM[c];const p=Object.values(players).find(x=>x.color===c);
+    const team=TEAMS[c];const el=_elim[c];
     return`<div class="pr">
       <div class="pd" style="background:${pm.dot}"></div>
       <span class="pnl">${p?esc(p.name):pm.label}</span>
-      ${badge}${status}
+      <span style="font-size:9px;padding:1px 5px;border-radius:3px;background:${team==='A'?'rgba(59,130,246,.15)':'rgba(249,115,22,.15)'};color:${team==='A'?'#3b82f6':'#f97316'}">${isMy?'US':'OPP'.replace('isMy',TEAMS[c]===_myTeam)}</span>
+      ${el?'<span style="color:#e74c3c;font-size:9px">RESIGNED</span>':''}
     </div>`;
   }).join('');
   ['pl','mob-pl'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=html;});
@@ -1715,17 +1897,19 @@ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 // ── Resize Canvas ──────────────────────────────────────────
 function resizeCanvas(){
   const cv=document.getElementById('gc');
-  const col=document.getElementById('center-col');
+  const col=document.getElementById('game-col');
   if(!cv||!col)return;
   const mob=window.innerWidth<=640;
   let sz;
   if(mob){
     const vw=window.innerWidth,vh=window.innerHeight;
-    sz=Math.min(vw-8,vh-250,480);sz=Math.max(sz,200);
+    sz=Math.min(vw-8,vh-270,420);sz=Math.max(sz,180);
   } else {
-    const colW=col.clientWidth||600;
-    const maxH=window.innerHeight-240;
-    sz=Math.min(colW-18,maxH,600);sz=Math.max(sz,300);
+    const bab=document.querySelector('.board-and-bars');
+    const bw=bab?bab.clientWidth:500;
+    const avail=bw-130;
+    const maxH=window.innerHeight-260;
+    sz=Math.min(avail,maxH,520);sz=Math.max(sz,260);
   }
   sz=Math.floor(sz/GRID)*GRID;
   cv.width=sz;cv.height=sz;cv.style.width=sz+'px';cv.style.height=sz+'px';
@@ -1822,17 +2006,50 @@ function startGame(rid){
   document.getElementById('mob-psb').addEventListener('click',spm);
   document.getElementById('mob-pci').addEventListener('keydown',e=>{if(e.key==='Enter')spm();});
 
-  // Mobile drawer
-  const drawer=document.getElementById('mob-drawer');
-  const openbtn=document.getElementById('mob-openbtn');
-  if(window.innerWidth<=640)drawer.style.display='flex';
-  openbtn.addEventListener('click',()=>drawer.classList.toggle('open'));
-  document.getElementById('mob-handle').addEventListener('click',()=>drawer.classList.toggle('open'));
-  document.querySelectorAll('.mob-tab').forEach(tab=>{
+  // Profile row: set initial my/opp borders
+  COLORS.forEach(c=>{
+    const cls=TEAMS[c]===_myTeam?'my':'opp';
+    const pic=document.getElementById('prof-'+c);
+    const nm=document.getElementById('pname-'+c);
+    if(pic)pic.className='profile-pic '+cls;
+    if(nm)nm.className='profile-name '+cls;
+  });
+
+  // Desktop chat tab switching
+  document.querySelectorAll('.chat-tab').forEach(tab=>{
     tab.addEventListener('click',()=>{
-      document.querySelectorAll('.mob-tab').forEach(t=>t.classList.remove('active'));
-      document.querySelectorAll('.mob-panel').forEach(p=>p.classList.remove('active'));
-      tab.classList.add('active');document.getElementById('mob-'+tab.dataset.tab).classList.add('active');
+      document.querySelectorAll('.chat-tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.chat-panel').forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      const panel=document.getElementById('chat-'+tab.dataset.panel);
+      if(panel)panel.classList.add('active');
+    });
+  });
+
+  // Mobile chat overlay
+  const chatOverlay=document.getElementById('mob-chat-overlay');
+  const chatBtn=document.getElementById('mob-chat-btn');
+  const toggleChat=()=>{
+    if(!chatOverlay)return;
+    const isOpen=chatOverlay.classList.contains('open');
+    if(isOpen){
+      chatOverlay.classList.remove('open');
+      setTimeout(()=>{if(!chatOverlay.classList.contains('open'))chatOverlay.style.display='none';},300);
+    } else {
+      chatOverlay.style.display='flex';
+      requestAnimationFrame(()=>requestAnimationFrame(()=>chatOverlay.classList.add('open')));
+    }
+  };
+  if(chatBtn)chatBtn.addEventListener('click',toggleChat);
+  const chatHandle=document.getElementById('mob-chat-handle');
+  if(chatHandle)chatHandle.addEventListener('click',toggleChat);
+  document.querySelectorAll('#mob-chat-overlay .mob-tab').forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      document.querySelectorAll('#mob-chat-overlay .mob-tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('#mob-chat-overlay .mob-panel').forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      const panel=document.getElementById('mob-'+tab.dataset.tab);
+      if(panel)panel.classList.add('active');
     });
   });
 
@@ -1852,18 +2069,52 @@ document.getElementById('jb').addEventListener('click',joinRoom);
 document.getElementById('ni').addEventListener('keydown',e=>{if(e.key==='Enter')joinRoom();});
 document.getElementById('ri').addEventListener('keydown',e=>{if(e.key==='Enter')joinRoom();});
 
-// ── Light / Dark Toggle ────────────────────────────────────
-(function(){
-  const btn=document.getElementById('uimode-btn');
-  let light=false;
-  try{if(localStorage.getItem('sh_ui2')==='light'){light=true;document.body.classList.add('light');btn.textContent='☀️';btn.title='Switch to Dark';}}catch(e){}
-  btn.addEventListener('click',()=>{
-    light=!light;document.body.classList.toggle('light',light);
-    btn.textContent=light?'☀️':'🌙';btn.title=light?'Switch to Dark':'Switch to Light';
-    try{localStorage.setItem('sh_ui2',light?'light':'dark');}catch(e){}
-    paint();
+
+
+// ── renderWordLog (sidebar found words) ───────────────────
+function renderWordLog2(myFound){
+  const wl=document.getElementById('my-words-list');
+  const cnt=document.getElementById('my-words-count');
+  const sorted=Object.entries(myFound).sort(([,a],[,b])=>a.ts-b.ts);
+  const pillHTML=sorted.map(([,info])=>{
+    const c=info.color||'red';
+    return`<span class="word-pill ${c}">${info.word.toUpperCase()}</span>`;
+  }).join('');
+  if(wl)wl.innerHTML=pillHTML||'<span style="font-size:9px;color:#3a4a60;font-style:italic;font-family:Cinzel,serif">No finds yet…</span>';
+  if(cnt)cnt.textContent=sorted.length;
+  // Mobile wf list (word chips to find, not found)
+  const mwf=document.getElementById('mob-wf-list');
+  const mwfc=document.getElementById('mob-wf-count');
+  if(mwf&&_words.length){
+    mwf.innerHTML=_words.map((w,i)=>{
+      const info=myFound[i];const found=info!==undefined;
+      const pm=found?PM[info.color]:null;
+      const style=found?`color:${pm.dot};text-decoration:line-through;text-decoration-color:${pm.dot};`:'';
+      return`<span class="word-chip${found?' found':''}${(!found&&GS?.winner)?' gameend':''}" data-widx="${i}" style="${style}">${w.word}</span>`;
+    }).join('');
+    if(mwfc)mwfc.textContent=`${Object.keys(myFound).length}/${_words.length}`;
+    mwf.addEventListener('click',e=>{
+      const chip=e.target.closest('.word-chip');if(!chip)return;
+      const idx=parseInt(chip.dataset.widx);if(isNaN(idx))return;
+      const mf=_myTeam==='A'?_foundA:_foundB;
+      if(mf[idx]!==undefined||GS?.winner)showMeaning(idx);
+    },{once:false});
+  }
+  // sync room id to sidebar
+  const rs2=document.getElementById('rs2');if(rs2)rs2.textContent=roomId||'—';
+}
+
+// ── Init ─────────────────────────────────────────────────
+document.querySelectorAll('.cc').forEach(el=>{
+  el.addEventListener('click',()=>{
+    document.querySelectorAll('.cc').forEach(c=>c.classList.remove('sel'));
+    el.classList.add('sel');myColor=el.dataset.color;
+    _myTeam=TEAMS[myColor];_oppTeam=_myTeam==='A'?'B':'A';
   });
-})();
+});
+document.getElementById('jb').addEventListener('click',joinRoom);
+document.getElementById('ni').addEventListener('keydown',e=>{if(e.key==='Enter')joinRoom();});
+document.getElementById('ri').addEventListener('keydown',e=>{if(e.key==='Enter')joinRoom();});
 </script>
 </body>
 </html>
