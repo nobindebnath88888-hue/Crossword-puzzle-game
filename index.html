@@ -1817,7 +1817,7 @@ function showMeaning(idx){
 }
 
 // ── Discovery Log ──────────────────────────────────────────
-function renderWordLog2(_myTeam==='A'?_foundA:_foundB);renderFoundLog(log){
+function renderFoundLog(log){
   const ml=document.getElementById('ml');if(!ml)return;
   ml.innerHTML=Object.entries(log).sort(([a],[b])=>a<b?1:-1).slice(0,50).map(([,e])=>
     `<div class="le ${e.color}">${PM[e.color]?.label||'?'} found ${e.word}</div>`
@@ -1850,7 +1850,7 @@ function renderPlayers(players){
     return`<div class="pr">
       <div class="pd" style="background:${pm.dot}"></div>
       <span class="pnl">${p?esc(p.name):pm.label}</span>
-      <span style="font-size:9px;padding:1px 5px;border-radius:3px;background:${team==='A'?'rgba(59,130,246,.15)':'rgba(249,115,22,.15)'};color:${team==='A'?'#3b82f6':'#f97316'}">${isMy?'US':'OPP'.replace('isMy',TEAMS[c]===_myTeam)}</span>
+      <span style="font-size:9px;padding:1px 5px;border-radius:3px;background:${team==='A'?'rgba(59,130,246,.15)':'rgba(249,115,22,.15)'};color:${team==='A'?'#3b82f6':'#f97316'}">${TEAMS[c]===_myTeam?'US':'OPP'}</span>
       ${el?'<span style="color:#e74c3c;font-size:9px">RESIGNED</span>':''}
     </div>`;
   }).join('');
